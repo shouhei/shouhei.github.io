@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[ブログ]]></title>
+  <title><![CDATA[プログラミングの話]]></title>
   <link href="http://shouhei.github.io/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-11-15T12:45:51+09:00</updated>
+  <updated>2014-12-01T12:08:00+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    
+    <title type="html"><![CDATA[はじめてみる]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/01/hazimetemiru/"/>
+    
+    <updated>2014-12-01T12:03:20+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/01/hazimetemiru</id>
+    
+    <content type="html"><![CDATA[<p>どこまで続くかわからないですけど。
+始めてみます。
+プログラミングetcのはなしです。</p>
+]]></content>
+    
+  </entry>
   
   <entry>
     
