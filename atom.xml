@@ -4,7 +4,7 @@
   <title><![CDATA[プログラミングの話]]></title>
   <link href="http://shouhei.github.io/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-01T12:23:18+09:00</updated>
+  <updated>2014-12-02T15:20:48+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -12,6 +12,98 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    
+    <title type="html"><![CDATA[python3のisとかinとnotの話]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/02/python3falseistokaintonotfalsehua/"/>
+    
+    <updated>2014-12-02T12:44:50+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/02/python3falseistokaintonotfalsehua</id>
+    
+    <content type="html"><![CDATA[<p>要は論理否定演算子の話</p>
+
+<h2>PHP</h2>
+
+<p>PHPでは</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php
+</span><span class='line'>$hoge = array('A','B','C');
+</span><span class='line'>
+</span><span class='line'>if( !is_array($hoge) ){
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とか</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php
+</span><span class='line'>$hoge = "A";
+</span><span class='line'>
+</span><span class='line'>if ($hoge != "A"){
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかで、<code>!</code> を論理否定演算子に使う。</p>
+
+<h2>Python</h2>
+
+<p>だが、Pythonでは<code>not</code>を利用して論理否定を表現する。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hoge = None
+</span><span class='line'>
+</span><span class='line'>hoge is not None</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とか</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hoge = ['1','2','3']
+</span><span class='line'>
+</span><span class='line'>'1' in not hoge
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で表現する。</p>
+
+<h3>補足1</h3>
+
+<p>pythonだと</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hoge = ['1','2','3']
+</span><span class='line'>
+</span><span class='line'>not '1' in hoge</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とか表現できるけど、こっちの方だと、pytestとかで警告が出る。</p>
+
+<h3>補足2</h3>
+
+<p>確認する際は<code>php -a</code>か、<code>ipythob</code>を利用して確認すると良い。</p>
+
+<p>ただしphp -a は環境によっては使えないことと、Trueを1、Falseを出力なしで表現することに注意</p>
+]]></content>
+    
+  </entry>
   
   <entry>
     
