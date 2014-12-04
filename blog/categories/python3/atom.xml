@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python3 | プログラミングの話]]></title>
   <link href="http://shouhei.github.io/blog/categories/python3/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-04T17:03:32+09:00</updated>
+  <updated>2014-12-04T17:20:34+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[octopressのシンタックスハイライト]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito/"/>
+    <updated>2014-12-04T17:05:42+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito</id>
+    <content type="html"><![CDATA[<p>このブログはoctopressってやつで運営しているんです。</p>
+
+<h1>octopressとは</h1>
+
+<p>octopressは静的ファイルで運営するブログでして、本文をマークダウンで記述出来て、さくっとコードの埋め込みとかも出来ます。</p>
+
+<pre><code>rake new_post['hogehoge']
+
+rake preview
+
+rake gen_deploy
+</code></pre>
+
+<p>の一連で記事を更新できます。</p>
+
+<h1>シンタックスハイライトが無効問題</h1>
+
+<p>コードを埋め込んでシンタックスハイライトを期待する文章で</p>
+
+<pre><code>rake preview
+</code></pre>
+
+<p>を叩くと</p>
+
+<pre><code>jekyll 2.5.1 | Error:  Pygments can't parse unknown language: php.
+</code></pre>
+
+<p>とかでる。</p>
+
+<p>でもってシンタックスハイライト有効にならない。</p>
+
+<h1>問題点</h1>
+
+<p>stackoverflowに出てました。
+<a href="https://github.com/imathis/octopress/issues/117">ここ</a></p>
+
+<p>つまり、python2.7でないとダメらしく、自分の環境のpythonは3.4.0だからっぽい。</p>
+
+<h1>解決方法</h1>
+
+<p>自分の環境はmacにpyenvがインストールされているので、octopressのディレクトリ内では2.7が動くように指定しました。</p>
+
+<p>macのシステムで利用しているpythonは2.7だと思うので</p>
+
+<pre><code>pyenv local system
+</code></pre>
+
+<p>以上をoctopressの設置しているディレクトリ内で叩くことにより、シンタックスハイライトが有効になりました。</p>
+
+<p>めでたしめでたし。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[python3のisとかinとnotの話]]></title>

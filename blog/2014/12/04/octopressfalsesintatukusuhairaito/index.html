@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>プログラミングの話</title>
+  <title>octopressのシンタックスハイライト - プログラミングの話</title>
   <meta name="author" content="Shouhei Yamaguchi">
 
   
@@ -23,7 +23,7 @@ rake new_post['hogehoge'] rake &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://shouhei.github.io">
+  <link rel="canonical" href="http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="プログラミングの話" type="application/atom+xml">
@@ -67,18 +67,15 @@ rake new_post['hogehoge'] rake &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
   
     
-      <h1 class="entry-title"><a href="/blog/2014/12/04/octopressfalsesintatukusuhairaito/">Octopressのシンタックスハイライト</a></h1>
-      
-      
+      <h1 class="entry-title">Octopressのシンタックスハイライト</h1>
+    
+  
     
       <p class="meta">
         
@@ -100,7 +97,7 @@ rake new_post['hogehoge'] rake &hellip;">
   </header>
 
 
-  <div class="entry-content"><p>このブログはoctopressってやつで運営しているんです。</p>
+<div class="entry-content"><p>このブログはoctopressってやつで運営しているんです。</p>
 
 <h1>octopressとは</h1>
 
@@ -159,24 +156,16 @@ rake new_post['hogehoge'] rake &hellip;">
 
 <p>めでたしめでたし。</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
   
-    
-      <h1 class="entry-title"><a href="/blog/2014/12/02/python3falseistokaintonotfalsehua/">Python3のisとかinとnotの話</a></h1>
+
+<span class="byline author vcard">Posted by <span class="fn">Shouhei Yamaguchi</span></span>
+
       
-      
-    
-      <p class="meta">
-        
 
 
 
@@ -188,148 +177,39 @@ rake new_post['hogehoge'] rake &hellip;">
   
 
 
-<time datetime="2014-12-02T12:44:50+09:00" pubdate data-updated="true"></time>
-        
-      </p>
+<time datetime="2014-12-04T17:05:42+09:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/python3/'>python3</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>要は論理否定演算子の話</p>
-
-<h2>PHP</h2>
-
-<p>PHPでは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
-</span><span class='line'><span class="nv">$hoge</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$hoge</span><span class="p">)</span> <span class="p">){</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とか</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
-</span><span class='line'><span class="nv">$hoge</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$hoge</span> <span class="o">!=</span> <span class="s2">&quot;A&quot;</span><span class="p">){</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とかで、<code>!</code> を論理否定演算子に使う。</p>
-
-<h2>Python</h2>
-
-<p>だが、Pythonでは<code>not</code>を利用して論理否定を表現する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="bp">None</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">hoge</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とか</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="s">&#39;1&#39;</span> <span class="ow">in</span> <span class="ow">not</span> <span class="n">hoge</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>で表現する。</p>
-
-<h3>補足1</h3>
-
-<p>pythonだと</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="ow">not</span> <span class="s">&#39;1&#39;</span> <span class="ow">in</span> <span class="n">hoge</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とか表現できるけど、こっちの方だと、pytestとかで警告が出る。</p>
-
-<h3>補足2</h3>
-
-<p>確認する際は<code>php -a</code>か、<code>ipythob</code>を利用して確認すると良い。</p>
-
-<p>ただしphp -a は環境によっては使えないことと、Trueを1、Falseを出力なしで表現することに注意</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito/" data-via="yaaamaaaguuu" data-counturl="http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito/" >Tweet</a>
+  
+  
+  
+  <a href="http://b.hatena.ne.jp/entry/http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
 </div>
-  
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-  
     
-      <h1 class="entry-title"><a href="/blog/2014/12/01/hazimetemiru/">はじめてみる</a></h1>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/02/python3falseistokaintonotfalsehua/" title="Previous Post: python3のisとかinとnotの話">&laquo; python3のisとかinとnotの話</a>
       
       
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-12-01T12:03:20+09:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>どこまで続くかわからないですけど。
-始めてみます。
-プログラミングetcのはなしです。</p>
 </div>
-  
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -386,6 +266,7 @@ rake new_post['hogehoge'] rake &hellip;">
 
   
 </aside>
+
 
     </div>
   </div>
