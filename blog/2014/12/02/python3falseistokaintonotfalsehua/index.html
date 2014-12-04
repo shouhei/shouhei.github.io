@@ -15,14 +15,14 @@
 4
 5
 &lt;?php
-$hoge = array('A','B','C'); if( !is_array($hoge) ){
+$hoge = array(&#39;A&#39;,&#39;B&#39;,&#39;C&#39;); if( !is_array($hoge) ){
 } とか 1
 2
 3
 4
 5
 &lt;?php
-$hoge = "A"; if ($hoge != "A &hellip;">
+$hoge &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -111,31 +111,31 @@ $hoge = "A"; if ($hoge != "A &hellip;">
 
 <p>PHPでは</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php
-</span><span class='line'>$hoge = array('A','B','C');
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="nv">$hoge</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'>if( !is_array($hoge) ){
-</span><span class='line'>}
+</span><span class='line'><span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$hoge</span><span class="p">)</span> <span class="p">){</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>とか</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php
-</span><span class='line'>$hoge = "A";
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="nv">$hoge</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>if ($hoge != "A"){
-</span><span class='line'>}
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$hoge</span> <span class="o">!=</span> <span class="s2">&quot;A&quot;</span><span class="p">){</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -145,22 +145,23 @@ $hoge = "A"; if ($hoge != "A &hellip;">
 
 <p>だが、Pythonでは<code>not</code>を利用して論理否定を表現する。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>hoge = None
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="bp">None</span>
 </span><span class='line'>
-</span><span class='line'>hoge is not None</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="n">hoge</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>とか</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>hoge = ['1','2','3']
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">]</span>
 </span><span class='line'>
-</span><span class='line'>'1' in not hoge
+</span><span class='line'><span class="s">&#39;1&#39;</span> <span class="ow">in</span> <span class="ow">not</span> <span class="n">hoge</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -170,12 +171,13 @@ $hoge = "A"; if ($hoge != "A &hellip;">
 
 <p>pythonだと</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>hoge = ['1','2','3']
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">]</span>
 </span><span class='line'>
-</span><span class='line'>not '1' in hoge</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="ow">not</span> <span class="s">&#39;1&#39;</span> <span class="ow">in</span> <span class="n">hoge</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>とか表現できるけど、こっちの方だと、pytestとかで警告が出る。</p>

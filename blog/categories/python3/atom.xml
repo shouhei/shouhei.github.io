@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python3 | プログラミングの話]]></title>
   <link href="http://shouhei.github.io/blog/categories/python3/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-04T16:58:16+09:00</updated>
+  <updated>2014-12-04T17:03:32+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -24,7 +24,7 @@
 
 <p>PHPでは</p>
 
-<pre><code>&lt;?php
+<pre><code class="php">&lt;?php
 $hoge = array('A','B','C');
 
 if( !is_array($hoge) ){
@@ -33,7 +33,7 @@ if( !is_array($hoge) ){
 
 <p>とか</p>
 
-<pre><code>&lt;?php
+<pre><code class="php">&lt;?php
 $hoge = "A";
 
 if ($hoge != "A"){
@@ -46,14 +46,14 @@ if ($hoge != "A"){
 
 <p>だが、Pythonでは<code>not</code>を利用して論理否定を表現する。</p>
 
-<pre><code>hoge = None
+<pre><code class="python">hoge = None
 
 hoge is not None
 </code></pre>
 
 <p>とか</p>
 
-<pre><code>hoge = ['1','2','3']
+<pre><code class="python">hoge = ['1','2','3']
 
 '1' in not hoge
 </code></pre>
@@ -64,7 +64,7 @@ hoge is not None
 
 <p>pythonだと</p>
 
-<pre><code>hoge = ['1','2','3']
+<pre><code class="python">hoge = ['1','2','3']
 
 not '1' in hoge
 </code></pre>
