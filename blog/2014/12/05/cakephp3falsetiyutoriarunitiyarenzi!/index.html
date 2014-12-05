@@ -1,27 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[プログラミングの話]]></title>
-  <link href="http://shouhei.github.io/atom.xml" rel="self"/>
-  <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-06T00:00:09+09:00</updated>
-  <id>http://shouhei.github.io/</id>
-  <author>
-    <name><![CDATA[Shouhei Yamaguchi]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>cakePHP3にチャレンジ！ - プログラミングの話</title>
+  <meta name="author" content="Shouhei Yamaguchi">
 
   
-  <entry>
+  <meta name="description" content="この投稿はCakePHP Advent Calendar 2014の6日目の記事です。 5日目:CakePHPでType Hinting！！！::CakePHP Advent(5日目) 前提 現在のcakePHPは 2.5.6が安定版、2.6.0がRC、3.0がbeatとしてリリースされています &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="プログラミングの話" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+	<div class="header-title"><a href="/">プログラミングの話</a></div>
+
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shouhei.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+  
     
-    <title type="html"><![CDATA[cakePHP3にチャレンジ！]]></title>
-    <link href="http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/"/>
+      <h1 class="entry-title">cakePHP3にチャレンジ！</h1>
     
-    <updated>2014-12-05T22:43:30+09:00</updated>
-    <id>http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!</id>
+  
     
-    <content type="html"><![CDATA[<blockquote><p>この投稿は<a href="http://qiita.com/advent-calendar/2014/cakephp">CakePHP Advent Calendar 2014</a>の6日目の記事です。</p>
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-05T22:43:30+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><blockquote><p>この投稿は<a href="http://qiita.com/advent-calendar/2014/cakephp">CakePHP Advent Calendar 2014</a>の6日目の記事です。</p>
 
 <p>5日目:<a href="http://qiita.com/Junkins/items/f3c929102d0b996f15b9">CakePHPでType Hinting！！！::CakePHP Advent(5日目)</a></p></blockquote>
 
@@ -235,7 +306,7 @@
 
 <p>(だけどまっさらで、必要な情報はもうちょい上に挙げられなかったのかなーなんてね)</p>
 
-<p><img src="http://shouhei.github.io/images/2014/12/5/cake3/cakephp3_top.png" alt="cakephp3 top" /></p>
+<p><img src="/images/2014/12/5/cake3/cakephp3_top.png" alt="cakephp3 top" /></p>
 
 <h3>ディレクトリ構成</h3>
 
@@ -494,7 +565,7 @@
 
 <p>3系ではcakeのデフォはフラットですね。</p>
 
-<p><img src="http://shouhei.github.io/images/2014/12/5/cake3/cake3_bookmarker.png" alt="cake3 bookmarker" /></p>
+<p><img src="/images/2014/12/5/cake3/cake3_bookmarker.png" alt="cake3 bookmarker" /></p>
 
 <p>これだけで、結構な色々な機能が使えるのですが、見れない所がちょいちょい有る。</p>
 
@@ -776,7 +847,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="http://shouhei.github.io/images/2014/12/5/cake3/cake3_tagged.png" alt="cake3 tagged" /></p>
+<p><img src="/images/2014/12/5/cake3/cake3_tagged.png" alt="cake3 tagged" /></p>
 
 <p>寂しいけどこんな感じ。
 これでbookmarkerチュートリアルは終了。</p>
@@ -817,187 +888,154 @@
 
 
 <p>って感じでインストールした。</p>
-]]></content>
-    
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    
-    <title type="html"><![CDATA[octopressのシンタックスハイライト]]></title>
-    <link href="http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito/"/>
-    
-    <updated>2014-12-04T17:05:42+09:00</updated>
-    <id>http://shouhei.github.io/blog/2014/12/04/octopressfalsesintatukusuhairaito</id>
-    
-    <content type="html"><![CDATA[<p>このブログはoctopressってやつで運営しているんです。</p>
 
-<h1>octopressとは</h1>
+<span class="byline author vcard">Posted by <span class="fn">Shouhei Yamaguchi</span></span>
 
-<p>octopressは静的ファイルで運営するブログでして、本文をマークダウンで記述出来て、さくっとコードの埋め込みとかも出来ます。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post['hogehoge']
-</span><span class='line'>
-</span><span class='line'>rake preview
-</span><span class='line'>
-</span><span class='line'>rake gen_deploy</span></code></pre></td></tr></table></div></figure>
+      
 
 
-<p>の一連で記事を更新できます。</p>
-
-<h1>シンタックスハイライトが無効問題</h1>
-
-<p>コードを埋め込んでシンタックスハイライトを期待する文章で</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
 
 
-<p>を叩くと</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>jekyll 2.5.1 | Error:  Pygments can't parse unknown language: php.</span></code></pre></td></tr></table></div></figure>
 
 
-<p>とかでる。</p>
-
-<p>でもってシンタックスハイライト有効にならない。</p>
-
-<h1>問題点</h1>
-
-<p>stackoverflowに出てました。
-<a href="https://github.com/imathis/octopress/issues/117">ここ</a></p>
-
-<p>つまり、python2.7でないとダメらしく、自分の環境のpythonは3.4.0だからっぽい。</p>
-
-<h1>解決方法</h1>
-
-<p>自分の環境はmacにpyenvがインストールされているので、octopressのディレクトリ内では2.7が動くように指定しました。</p>
-
-<p>macのシステムで利用しているpythonは2.7だと思うので</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pyenv local system</span></code></pre></td></tr></table></div></figure>
 
 
-<p>以上をoctopressの設置しているディレクトリ内で叩くことにより、シンタックスハイライトが有効になりました。</p>
-
-<p>めでたしめでたし。</p>
-]]></content>
-    
-  </entry>
   
-  <entry>
-    
-    <title type="html"><![CDATA[python3のisとかinとnotの話]]></title>
-    <link href="http://shouhei.github.io/blog/2014/12/02/python3falseistokaintonotfalsehua/"/>
-    
-    <updated>2014-12-02T12:44:50+09:00</updated>
-    <id>http://shouhei.github.io/blog/2014/12/02/python3falseistokaintonotfalsehua</id>
-    
-    <content type="html"><![CDATA[<p>要は論理否定演算子の話</p>
-
-<h2>PHP</h2>
-
-<p>PHPでは</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
-</span><span class='line'><span class="nv">$hoge</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="nb">is_array</span><span class="p">(</span><span class="nv">$hoge</span><span class="p">)</span> <span class="p">){</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>とか</p>
+<time datetime="2014-12-05T22:43:30+09:00" pubdate data-updated="true"></time>
+      
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
-</span><span class='line'><span class="nv">$hoge</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$hoge</span> <span class="o">!=</span> <span class="s2">&quot;A&quot;</span><span class="p">){</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とかで、<code>!</code> を論理否定演算子に使う。</p>
-
-<h2>Python</h2>
-
-<p>だが、Pythonでは<code>not</code>を利用して論理否定を表現する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="bp">None</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">hoge</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とか</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="s">&#39;1&#39;</span> <span class="ow">in</span> <span class="ow">not</span> <span class="n">hoge</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>で表現する。</p>
-
-<h3>補足1</h3>
-
-<p>pythonだと</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="ow">not</span> <span class="s">&#39;1&#39;</span> <span class="ow">in</span> <span class="n">hoge</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とか表現できるけど、こっちの方だと、pytestとかで警告が出る。</p>
-
-<h3>補足2</h3>
-
-<p>確認する際は<code>php -a</code>か、<code>ipythob</code>を利用して確認すると良い。</p>
-
-<p>ただしphp -a は環境によっては使えないことと、Trueを1、Falseを出力なしで表現することに注意</p>
-]]></content>
-    
-  </entry>
+<span class="categories">
   
-  <entry>
-    
-    <title type="html"><![CDATA[はじめてみる]]></title>
-    <link href="http://shouhei.github.io/blog/2014/12/01/hazimetemiru/"/>
-    
-    <updated>2014-12-01T12:03:20+09:00</updated>
-    <id>http://shouhei.github.io/blog/2014/12/01/hazimetemiru</id>
-    
-    <content type="html"><![CDATA[<p>どこまで続くかわからないですけど。
-始めてみます。
-プログラミングetcのはなしです。</p>
-]]></content>
-    
-  </entry>
+    <a class='category' href='/blog/categories/cakephp3/'>cakephp3</a>
   
-</feed>
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/" data-via="yaaamaaaguuu" data-counturl="http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/" >Tweet</a>
+  
+  
+  
+  <a href="http://b.hatena.ne.jp/entry/http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/04/octopressfalsesintatukusuhairaito/" title="Previous Post: octopressのシンタックスハイライト">&laquo; octopressのシンタックスハイライト</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/">cakePHP3にチャレンジ！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/04/octopressfalsesintatukusuhairaito/">octopressのシンタックスハイライト</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/02/python3falseistokaintonotfalsehua/">python3のisとかinとnotの話</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/01/hazimetemiru/">はじめてみる</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shouhei">@shouhei</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shouhei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -  Shouhei Yamaguchi <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> + <a href="https://github.com/ioveracker/mnml">mnml</a>.
+	  
+  </span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

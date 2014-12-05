@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cakephp3 | プログラミングの話]]></title>
+  <link href="http://shouhei.github.io/blog/categories/cakephp3/atom.xml" rel="self"/>
+  <link href="http://shouhei.github.io/"/>
+  <updated>2014-12-06T00:00:09+09:00</updated>
+  <id>http://shouhei.github.io/</id>
+  <author>
+    <name><![CDATA[Shouhei Yamaguchi]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[cakePHP3にチャレンジ！]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/"/>
+    <updated>2014-12-05T22:43:30+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!</id>
+    <content type="html"><![CDATA[<blockquote><p>この投稿は<a href="http://qiita.com/advent-calendar/2014/cakephp">CakePHP Advent Calendar 2014</a>の6日目の記事です。</p>
+
+<p>5日目:<a href="http://qiita.com/Junkins/items/f3c929102d0b996f15b9">CakePHPでType Hinting！！！::CakePHP Advent(5日目)</a></p></blockquote>
+
+<h1>前提</h1>
+
+<p>現在のcakePHPは <code>2.5.6</code>が安定版、<code>2.6.0</code>がRC、<code>3.0</code>がbeatとしてリリースされています。</p>
+
+<p>cakeの3って、2と何が違うの？という話は、Engine Yardさんの以下の記事がわかりやすいと思うので、そちらを参照してください。</p>
+
+<p><a href="http://www.engineyard.co.jp/blog/2013/cakephp3-preprepreview/">第3回 週末ランサーズにてCakePHP3についての講演をしました</a></p>
+
+<p><a href="http://www.engineyard.co.jp/blog/2014/cakephp3-future-preview/">マドリードで見たCakePHP3の明るい未来 </a></p>
+
+<p>本日はまだ英語版しか無い、cakePHP3のBookmarkerチュートリアルほど取り組みます！</p>
+
+<h1>扱うこと</h1>
+
+<ul>
+<li>cakePHP3を始めるにあたって必要なもの</li>
+<li>cakePHP3のインストール</li>
+<li>プロジェクトの始め方</li>
+<li>ちょっとだけカスタマイズ</li>
+</ul>
+
+
+<h1>cake以前の準備</h1>
+
+<p><a href="http://book.cakephp.org/3.0/en/installation.html">Installation</a>と<a href="http://book.cakephp.org/3.0/en/quickstart.html">Quick Start Guide</a>を参考に進めていきます。</p>
+
+<h2>実行環境</h2>
+
+<p>必要なものに以下が指定されています。</p>
+
+<ul>
+<li>webサーバー</li>
+<li>PHP 5.4.16 以上</li>
+<li>mbstring extension</li>
+<li>mcrypt extension</li>
+<li>intl extension</li>
+<li>pdo</li>
+<li>DB(後述)</li>
+</ul>
+
+
+<p>DBは以下の内のどれか</p>
+
+<ul>
+<li>MySQL 5.1.10以上</li>
+<li>PostgreSQL</li>
+<li>Microsoft SQL Server 2008以上</li>
+<li>SQLite 3</li>
+</ul>
+
+
+<p>まぁつまり、通常のLAMP構成みたいなものがあれば良いのでは無いかと思います。</p>
+
+<p>自分はvagrantを利用して以下を用意しました。</p>
+
+<ul>
+<li>centOS6.5</li>
+<li>nginx</li>
+<li>php5.6</li>
+<li>mysql</li>
+</ul>
+
+
+<h2>caekPHPのインストールの準備</h2>
+
+<p>コマンドラインから適当なディレクトリで以下を実行します。</p>
+
+<p>練習ということで、cakePHPを配置したいディレクトリで実行するのがいいと思います。</p>
+
+<p>まず、cakeをインストールするためのcomposerをインストール</p>
+
+<pre><code class="sh">curl -s https://getcomposer.org/installer | php
+</code></pre>
+
+<h1>チュートリアル Bookmarker</h1>
+
+<p><a href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/intro.html">Bookmarker</a>を作るチュートリアルです。</p>
+
+<p>チュートリアルの概要は、簡易版のソーシャルブックマークを作成しよう！というものです。</p>
+
+<p>サイトに登録したユーザーは、URLを登録する事ができ、そのURLに対してタグを付与することが出来るようになります。</p>
+
+<h2>cakePHP3をcomposerでインストール</h2>
+
+<p>以下を実行するとcakeがインストールされます。</p>
+
+<p>最後の<code>bookmarker</code>ってやつがインストールされるディレクトリ名になります。</p>
+
+<pre><code class="sh">php composer.phar create-project --prefer-dist -s dev cakephp/app bookmarker
+</code></pre>
+
+<p>時間が少々かかります。成功すると標準出力に以下の様なものが表示されます。</p>
+
+<pre><code class="sh">Installing cakephp/app (dev-master 28008873514274db441338eff5e2d07e75274f48)
+  - Installing cakephp/app (dev-master master)
+      Loading from cache
+
+Created project in bookmarker
+Loading composer repositories with package information
+Installing dependencies (including require-dev)
+  - Installing cakephp/plugin-installer (0.0.1)
+      Downloading: 100%
+
+  - Installing aura/installer-default (1.0.0)
+      Downloading: 100%
+
+  - Installing nesbot/carbon (1.13.0)
+      Downloading: 100%
+
+  - Installing psr/log (1.0.0)
+      Downloading: 100%
+
+  - Installing aura/intl (1.1.1)
+      Downloading: 100%
+
+  - Installing ircmaxell/password-compat (v1.0.4)
+      Downloading: 100%
+
+  - Installing cakephp/cakephp (3.0.x-dev 0e787e9)
+      Downloading: 100%
+
+  - Installing cakephp/debug_kit (3.0.x-dev 8a6f3da)
+      Downloading: 100%
+
+  - Installing mobiledetect/mobiledetectlib (2.8.11)
+      Downloading: 100%
+
+  - Installing d11wtq/boris (v1.0.8)
+      Downloading: 100%
+
+d11wtq/boris suggests installing ext-posix (*)
+Writing lock file
+Generating autoload files
+Created `config/app.php` file
+Permissions set on /vagrant/bookmarker/tmp/cache
+Permissions set on /vagrant/bookmarker/tmp/cache/models
+Permissions set on /vagrant/bookmarker/tmp/cache/persistent
+Permissions set on /vagrant/bookmarker/tmp/cache/views
+Permissions set on /vagrant/bookmarker/tmp/sessions
+Permissions set on /vagrant/bookmarker/tmp/tests
+Permissions set on /vagrant/bookmarker/tmp
+Permissions set on /vagrant/bookmarker/logs
+Updated Security.salt value in config/app.php
+</code></pre>
+
+<p>失敗してるとちゃんとproblemって出るので見落とさないように。</p>
+
+<p>自分の環境(<a href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/part-two.html">ここ</a>のCentOS 6.5 x86_64)では <code>php-intl</code> がインストール出来なくてエラーが出てました。最後にちょろっと補足を書いておきます。</p>
+
+<h3>アクセスするとこんな感じ</h3>
+
+<p>2系列の時より綺麗！！！</p>
+
+<p>(だけどまっさらで、必要な情報はもうちょい上に挙げられなかったのかなーなんてね)</p>
+
+<p><img src="/images/2014/12/5/cake3/cakephp3_top.png" alt="cakephp3 top" /></p>
+
+<h3>ディレクトリ構成</h3>
+
+<p>appがsrcに変わった感じ？</p>
+
+<pre><code>bookmarker
+├── README.md
+├── bin
+├── composer.json
+├── composer.lock
+├── config
+├── index.php
+├── logs
+├── phpunit.xml.dist
+├── plugins
+├── src
+├── tests
+├── tmp
+├── vendor
+└── webroot
+</code></pre>
+
+<p>src以下はずいぶんスッキリ</p>
+
+<pre><code>src
+├── Console
+├── Controller
+├── Model(以下にTable,Entity,Behaviorがあります)
+├── Shell
+├── Template (2系列までのView相当)
+└── View (3系列でViewがオブジェクトになった影響のディレクトリ)
+</code></pre>
+
+<h2>設定</h2>
+
+<p>まずtmpとかlogsとかの権限をphpが関与できる権限に変更しましょう。</p>
+
+<p>つぎにDBの作成とテーブルの設定。チュートリアルにある、以下をまんま流し込む</p>
+
+<p>今回は面倒かつ練習用なので</p>
+
+<p>ユーザー名 root
+パスワード root
+作成したDBの名前 bookmarker</p>
+
+<pre><code>CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created DATETIME,
+    updated DATETIME
+);
+
+CREATE TABLE bookmarks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(50),
+    description TEXT,
+    url TEXT,
+    created DATETIME,
+    updated DATETIME,
+    FOREIGN KEY user_key (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE tags (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    created DATETIME,
+    updated DATETIME,
+    UNIQUE KEY (title)
+);
+
+CREATE TABLE bookmarks_tags (
+    bookmark_id INT NOT NULL,
+    tag_id INT NOT NULL,
+    PRIMARY KEY (bookmark_id, tag_id),
+    INDEX tag_idx (tag_id, bookmark_id),
+    FOREIGN KEY tag_key(tag_id) REFERENCES tags(id),
+    FOREIGN KEY bookmark_key(bookmark_id) REFERENCES bookmarks(id)
+);
+</code></pre>
+
+<p>でもって、作成したDBの設定をconfig/app.phpに反映</p>
+
+<pre><code class="php">#config/app.phpの200行目付近
+
+        'Datasources' =&gt; [
+            'default' =&gt; [
+                'className' =&gt; 'Cake\Database\Connection',
+                'driver' =&gt; 'Cake\Database\Driver\Mysql',
+                'persistent' =&gt; false,
+                'host' =&gt; 'localhost',
+                 /*
+                  * CakePHP will use the default DB port based on the driver selected
+                  * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
+                  * the following line and set the port accordingly
+                  */
+                 //'port' =&gt; 'nonstandard_port_number',
+                'username' =&gt; 'root',
+                'password' =&gt; 'root',
+            'database' =&gt; 'bookmarker',
+                'encoding' =&gt; 'utf8',
+                'timezone' =&gt; 'UTC',
+                'cacheMetadata' =&gt; true,
+
+                /*
+                 * Set identifier quoting to true if you are using reserved words or
+                 * special characters in your table or column names. Enabling this
+                 * setting will result in queries built using the Query Builder having
+                 * identifiers quoted when creating SQL. It should be noted that this
+                 * decreases performance because each query needs to be traversed and
+                 * manipulated before being executed.
+                 */
+                'quoteIdentifiers' =&gt; false,
+
+                /*
+                 * During development, if using MySQL &lt; 5.6, uncommenting the
+                 * following line could boost the speed at which schema metadata is
+                 * fetched from the database. It can also be set directly with the
+                 * mysql configuration directive 'innodb_stats_on_metadata = 0'
+                 * which is the recommended value in production environments
+                 */
+                 //'init' =&gt; ['SET GLOBAL innodb_stats_on_metadata = 0'],
+            ],
+</code></pre>
+
+<h2>スキャッフォルドで色々と生成</h2>
+
+<p>おなじみのスキャッフォルド</p>
+
+<p>bookmarkerとしてcakeをインストールしたディレクトリで以下を叩きます</p>
+
+<pre><code class="sh">php bin/cake.php bake all users
+php bin/cake.php bake all bookmarks
+php bin/cake.php bake all tags
+</code></pre>
+
+<p>成功してると最後に以下が表示される</p>
+
+<pre><code>Bake All complete.
+</code></pre>
+
+<p>成功したなら以下にアクセス</p>
+
+<pre><code>http://example.com/bookmarks
+</code></pre>
+
+<p>3系ではcakeのデフォはフラットですね。</p>
+
+<p><img src="/images/2014/12/5/cake3/cake3_bookmarker.png" alt="cake3 bookmarker" /></p>
+
+<p>これだけで、結構な色々な機能が使えるのですが、見れない所がちょいちょい有る。</p>
+
+<p>が、それは後で治すと思うのでとりあえず放置</p>
+
+<p>とりあえず、この後色々試すのにユーザーとタグとブクマのデータを入れて欲しい。
+順番もきちんとユーザー、タグ、ブクマで入れると勘違いが起きない。</p>
+
+<h2>パスワードを暗号化させよう</h2>
+
+<p>現状のままだと、ユーザーのパスワードが暗号化されていないので実用性が低いと思われるので。</p>
+
+<p>src/Model/Entity/User.phpに追記していきます。</p>
+
+<pre><code>&lt;?php
+namespace App\Model\Entity;
+
+use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher; #追記
+/**
+ * User Entity.
+ */
+class User extends Entity {
+
+/**
+ * Fields that can be mass assigned using newEntity() or patchEntity().
+ *
+ * @var array
+ */
+    protected $_accessible = [
+        'email' =&gt; true,
+        'password' =&gt; true,
+        'bookmarks' =&gt; true,
+        ];
+
+    protected function _setPassword($value) {  #追記
+            $hasher = new DefaultPasswordHasher(); #追記
+            return $hasher-&gt;hash($valu             #追記
+
+    }
+}
+</code></pre>
+
+<p>(どうでもいいけど、cakeのスキャッフォルド、tab文字で生成されるの凄く気になりませんか？)</p>
+
+<p>これで、Userを編集したり、新しく保存するとユーザーのパスワードが暗号化されるはず。</p>
+
+<p>2系列で使っていたModelは、Model/Entityに移動した形ですかね？
+3系列ではModelがオブジェクトを返すようになったらしいので、それに伴い、大きく変更されてるっぽいですね。</p>
+
+<h3>面倒だけど、ドキュメンを読む</h3>
+
+<p><a href="http://book.cakephp.org/3.0/en/orm.html">Model</a>から抜粋</p>
+
+<blockquote><p>In CakePHP your application’s domain model gets split into 2 primary object types. The first are repositories or table objects. These objects provide access to collections of data. They allow you to save new records, modify/delete existing ones, define relations, and perform bulk operations. The second type of objects are entities. Entities represent individual records and allow you to define row/record level behavior &amp; functionality.</p></blockquote>
+
+<p>ざっくり訳すと、modelは２つに別れて、</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> オブジェクト </th>
+<th style="text-align:right;"> 役割             </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> table </td>
+<td style="text-align:right;"> 新しいデータの保存とか、変更、削除と、リレーションの定義 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> entities</td>
+<td style="text-align:right;"> 独立したレコードの表示や、行の振る舞いや関数の定義</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>つまり、tableはデータを弄る系とリレーション、entitiesはデータの利用ってことでいいのかな？</p>
+
+<h3>ついでにViewがどう変わったのかも確認する</h3>
+
+<p><a href="http://book.cakephp.org/3.0/en/appendices/3-0-migration-guide.html">3.0 Migration Guide</a>がわかりやすそう</p>
+
+<blockquote><p>The folders containing view files now go under src/Template instead of src/View. This was done to separate the view files from files containing php classes (eg. Helpers, View classes).</p></blockquote>
+
+<p>いままでのViewがTemplateに変わったとの事。</p>
+
+<p>cake3ではViewもオブジェクトになったからだと思われる。</p>
+
+<p>でもって、Viewのオブジェクトで色々と設定が出来るようになった？って感じかな。</p>
+
+<h2>タグ付けされてるブックマークを探したいよね。</h2>
+
+<p>たとえば</p>
+
+<pre><code>http://example.com/bookmarks/tagged/funny/cat/gifs
+</code></pre>
+
+<p>以上だと、funnyとかタグ付けされてるやつブクマが分かることを期待する。</p>
+
+<p>この機能を実現するために、以下の手順を通して行う。</p>
+
+<ol>
+<li>config/routes.phpを編集</li>
+<li>src/Controller/BookmarksController.phpの編集</li>
+<li>src/Model/Table/BookmarksTable.phpの編集</li>
+<li>Template/Bookmarks/tags.ctpの追加</li>
+</ol>
+
+
+<h3>まず、config/routes.phpを編集</h3>
+
+<pre><code class="php">＃URLのbookmarks以下でtaggedにマッチしたら、BookmarksControllersのtagsメソッドにアクセス
+Router::scope(
+    '/bookmarks',
+        ['controller' =&gt; 'Bookmarks'],
+        function ($routes) {
+            $routes-&gt;connect('/tagged/*', ['action' =&gt; 'tags']);
+        }
+);
+</code></pre>
+
+<p>以上を、</p>
+
+<pre><code>Router::scope("/",#以下略
+</code></pre>
+
+<p>が出てくる前に記述する。</p>
+
+<p>記述しないと、<code>/</code> が追記したものより先にマッチして思うようにアクセス出来ない。</p>
+
+<h3>コントローラーの編集</h3>
+
+<p>routesに追記したのはBookmarksControllersのtagsにアクセスと書いたが、まだ無いので追記。
+位置は基本的に気にしなくていい。</p>
+
+<pre><code class="php">public function tags() {
+    $tags = $this-&gt;request-&gt;params['pass'];
+        #findの第一引数のtaggedが、ModelのfindTaggedに関連づいている
+    $bookmarks = $this-&gt;Bookmarks-&gt;find('tagged', [
+                'tags' =&gt; $tags
+                ]);
+    $this-&gt;set(compact('bookmarks', 'tags'));
+}
+</code></pre>
+
+<h3>モデルの編集</h3>
+
+<p>チュートリアルには、コントローラーを薄く保つために、モデルにロジックを記述するんだ！とか書いてある。</p>
+
+<p>結果として、より規約を意識する形になったと思う。</p>
+
+<p>コードのコメントにも書いたが、Controller内のModel呼び出しで、<code>find('tagged'〜</code>のところが、findTaggedと結びついている。</p>
+
+<p>Model/Table/BookmarksTable.phpに以下を追記</p>
+
+<pre><code class="php">public function findTagged(Query $query, array $options) {
+    $fields = [
+            'Bookmarks.id',
+            'Bookmarks.title',
+            'Bookmarks.url',
+        ];
+    return $this-&gt;find()
+                -&gt;distinct($fields)
+                -&gt;matching('Tags', function ($q) use ($options) {
+                    return $q-&gt;where(['Tags.title IN' =&gt; $options['tags']]);
+                });
+}
+</code></pre>
+
+<h3>Templateの追加</h3>
+
+<p>Controllerにメソッドを追加したら、Templateも追加しましょう。</p>
+
+<p>/Template/Bookmarks/tags.ctpに以下を記述して保存</p>
+
+<p>&#8220;`html</p>
+
+<h1>Bookmarks tagged with <?= $this->Text->toList($tags) ?> </h1>
+
+
+<p><section>
+    &lt;?php foreach ($bookmarks as $bookmark): ?>
+        <article>
+            <h4>&lt;?= $this->Html->link($bookmark->title, $bookmark->url) ?></h4>
+            <small>&lt;?= h($bookmark->url) ?></small>
+            &lt;?= $this->Text->autoParagraph($bookmark->description) ?>
+        </article>
+    &lt;?php endforeach; ?>
+</section>
+&#8220;`</p>
+
+<h2>全て終えると</h2>
+
+<pre><code>http://example.com/bookmarks/tagged/hogehoge
+</code></pre>
+
+<p>にアクセスするとhogehogeとタグ付けされた本がリストアップされる。</p>
+
+<p>スクショは、予めブクマしたものにプログラミングとタグ付けをしてURLにアクセスしたもの。</p>
+
+<pre><code>http://example.com/bookmarks/tagged/プログラミング
+</code></pre>
+
+<p><img src="/images/2014/12/5/cake3/cake3_tagged.png" alt="cake3 tagged" /></p>
+
+<p>寂しいけどこんな感じ。
+これでbookmarkerチュートリアルは終了。</p>
+
+<h1>cake3の感想</h1>
+
+<p>結構色々変わった！というのがチュートリアルを終えての印象。</p>
+
+<p>cake2の頃も結構規約を意識しなければならなかったが、更に規約を意識してプログラムを書かなければと思う。</p>
+
+<p>cake慣れていれば問題ないけど、初心者とかは結構詰まるのではないかな？</p>
+
+<p>ModelとViewが更に大きく変わっていると思うけれど、今回のチュートリアルでは構成と役割が分割されたくらいしかわからないので、次回に持越し。</p>
+
+<p>とりあえず、正式にリリースされたら、新規で作るものに関しては使っていきたいと思う。
+これだけの変更があると、マイグレーションツールとかがどの位通用するのかとかも気になる所。</p>
+
+<hr />
+
+<p>想像以上に長くなったので、とりあえず本日の記事は以上にします。
+近いうちに<a href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/part-two.html">Bookmarkarチュートリアル2</a>に取り組む記事もあげる予定です。</p>
+
+<p>cakePHP3のチュートリアルの足掛かりになればと思います。</p>
+
+<h1>補足</h1>
+
+<p>php-intlがインストールできて無かった話</p>
+
+<p>libicudata.so.50()(64bit)が無いと言われたので</p>
+
+<pre><code class="sh">wget ftp://195.220.108.108/linux/remi/enterprise/6/remi/x86_64/libicu-last-50.1.2-11.el6.remi.x86_64.rpm
+rpm -iV libicu-last-50.1.2-11.el6.remi.x86_64.rpm
+yum -y install --enablerepo=remi-php56 php-intl
+</code></pre>
+
+<p>って感じでインストールした。</p>
+]]></content>
+  </entry>
+  
+</feed>

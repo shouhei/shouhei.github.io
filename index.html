@@ -9,12 +9,7 @@
   <meta name="author" content="Shouhei Yamaguchi">
 
   
-  <meta name="description" content="このブログはoctopressってやつで運営しているんです。 octopressとは octopressは静的ファイルで運営するブログでして、本文をマークダウンで記述出来て、さくっとコードの埋め込みとかも出来ます。 1
-2
-3
-4
-5
-rake new_post['hogehoge'] rake &hellip;">
+  <meta name="description" content="この投稿はCakePHP Advent Calendar 2014の6日目の記事です。 5日目:CakePHPでType Hinting！！！::CakePHP Advent(5日目) 前提 現在のcakePHPは 2.5.6が安定版、2.6.0がRC、3.0がbeatとしてリリースされています &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +64,839 @@ rake new_post['hogehoge'] rake &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/">cakePHP3にチャレンジ！</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-05T22:43:30+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>この投稿は<a href="http://qiita.com/advent-calendar/2014/cakephp">CakePHP Advent Calendar 2014</a>の6日目の記事です。</p>
+
+<p>5日目:<a href="http://qiita.com/Junkins/items/f3c929102d0b996f15b9">CakePHPでType Hinting！！！::CakePHP Advent(5日目)</a></p></blockquote>
+
+<h1>前提</h1>
+
+<p>現在のcakePHPは <code>2.5.6</code>が安定版、<code>2.6.0</code>がRC、<code>3.0</code>がbeatとしてリリースされています。</p>
+
+<p>cakeの3って、2と何が違うの？という話は、Engine Yardさんの以下の記事がわかりやすいと思うので、そちらを参照してください。</p>
+
+<p><a href="http://www.engineyard.co.jp/blog/2013/cakephp3-preprepreview/">第3回 週末ランサーズにてCakePHP3についての講演をしました</a></p>
+
+<p><a href="http://www.engineyard.co.jp/blog/2014/cakephp3-future-preview/">マドリードで見たCakePHP3の明るい未来 </a></p>
+
+<p>本日はまだ英語版しか無い、cakePHP3のBookmarkerチュートリアルほど取り組みます！</p>
+
+<h1>扱うこと</h1>
+
+<ul>
+<li>cakePHP3を始めるにあたって必要なもの</li>
+<li>cakePHP3のインストール</li>
+<li>プロジェクトの始め方</li>
+<li>ちょっとだけカスタマイズ</li>
+</ul>
+
+
+<h1>cake以前の準備</h1>
+
+<p><a href="http://book.cakephp.org/3.0/en/installation.html">Installation</a>と<a href="http://book.cakephp.org/3.0/en/quickstart.html">Quick Start Guide</a>を参考に進めていきます。</p>
+
+<h2>実行環境</h2>
+
+<p>必要なものに以下が指定されています。</p>
+
+<ul>
+<li>webサーバー</li>
+<li>PHP 5.4.16 以上</li>
+<li>mbstring extension</li>
+<li>mcrypt extension</li>
+<li>intl extension</li>
+<li>pdo</li>
+<li>DB(後述)</li>
+</ul>
+
+
+<p>DBは以下の内のどれか</p>
+
+<ul>
+<li>MySQL 5.1.10以上</li>
+<li>PostgreSQL</li>
+<li>Microsoft SQL Server 2008以上</li>
+<li>SQLite 3</li>
+</ul>
+
+
+<p>まぁつまり、通常のLAMP構成みたいなものがあれば良いのでは無いかと思います。</p>
+
+<p>自分はvagrantを利用して以下を用意しました。</p>
+
+<ul>
+<li>centOS6.5</li>
+<li>nginx</li>
+<li>php5.6</li>
+<li>mysql</li>
+</ul>
+
+
+<h2>caekPHPのインストールの準備</h2>
+
+<p>コマンドラインから適当なディレクトリで以下を実行します。</p>
+
+<p>練習ということで、cakePHPを配置したいディレクトリで実行するのがいいと思います。</p>
+
+<p>まず、cakeをインストールするためのcomposerをインストール</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>curl -s https://getcomposer.org/installer <span class="p">|</span> php
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>チュートリアル Bookmarker</h1>
+
+<p><a href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/intro.html">Bookmarker</a>を作るチュートリアルです。</p>
+
+<p>チュートリアルの概要は、簡易版のソーシャルブックマークを作成しよう！というものです。</p>
+
+<p>サイトに登録したユーザーは、URLを登録する事ができ、そのURLに対してタグを付与することが出来るようになります。</p>
+
+<h2>cakePHP3をcomposerでインストール</h2>
+
+<p>以下を実行するとcakeがインストールされます。</p>
+
+<p>最後の<code>bookmarker</code>ってやつがインストールされるディレクトリ名になります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>php composer.phar create-project --prefer-dist -s dev cakephp/app bookmarker
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>時間が少々かかります。成功すると標準出力に以下の様なものが表示されます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>Installing cakephp/app <span class="o">(</span>dev-master 28008873514274db441338eff5e2d07e75274f48<span class="o">)</span>
+</span><span class='line'>  - Installing cakephp/app <span class="o">(</span>dev-master master<span class="o">)</span>
+</span><span class='line'>      Loading from cache
+</span><span class='line'>
+</span><span class='line'>Created project in bookmarker
+</span><span class='line'>Loading composer repositories with package information
+</span><span class='line'>Installing dependencies <span class="o">(</span>including require-dev<span class="o">)</span>
+</span><span class='line'>  - Installing cakephp/plugin-installer <span class="o">(</span>0.0.1<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing aura/installer-default <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing nesbot/carbon <span class="o">(</span>1.13.0<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing psr/log <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing aura/intl <span class="o">(</span>1.1.1<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing ircmaxell/password-compat <span class="o">(</span>v1.0.4<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing cakephp/cakephp <span class="o">(</span>3.0.x-dev 0e787e9<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing cakephp/debug_kit <span class="o">(</span>3.0.x-dev 8a6f3da<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing mobiledetect/mobiledetectlib <span class="o">(</span>2.8.11<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>  - Installing d11wtq/boris <span class="o">(</span>v1.0.8<span class="o">)</span>
+</span><span class='line'>      Downloading: 100%
+</span><span class='line'>
+</span><span class='line'>d11wtq/boris suggests installing ext-posix <span class="o">(</span>*<span class="o">)</span>
+</span><span class='line'>Writing lock file
+</span><span class='line'>Generating autoload files
+</span><span class='line'>Created <span class="sb">`</span>config/app.php<span class="sb">`</span> file
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/tmp/cache
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/tmp/cache/models
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/tmp/cache/persistent
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/tmp/cache/views
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/tmp/sessions
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/tmp/tests
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/tmp
+</span><span class='line'>Permissions <span class="nb">set </span>on /vagrant/bookmarker/logs
+</span><span class='line'>Updated Security.salt value in config/app.php
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>失敗してるとちゃんとproblemって出るので見落とさないように。</p>
+
+<p>自分の環境(<a href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/part-two.html">ここ</a>のCentOS 6.5 x86_64)では <code>php-intl</code> がインストール出来なくてエラーが出てました。最後にちょろっと補足を書いておきます。</p>
+
+<h3>アクセスするとこんな感じ</h3>
+
+<p>2系列の時より綺麗！！！</p>
+
+<p>(だけどまっさらで、必要な情報はもうちょい上に挙げられなかったのかなーなんてね)</p>
+
+<p><img src="/images/2014/12/5/cake3/cakephp3_top.png" alt="cakephp3 top" /></p>
+
+<h3>ディレクトリ構成</h3>
+
+<p>appがsrcに変わった感じ？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>bookmarker
+</span><span class='line'>├── README.md
+</span><span class='line'>├── bin
+</span><span class='line'>├── composer.json
+</span><span class='line'>├── composer.lock
+</span><span class='line'>├── config
+</span><span class='line'>├── index.php
+</span><span class='line'>├── logs
+</span><span class='line'>├── phpunit.xml.dist
+</span><span class='line'>├── plugins
+</span><span class='line'>├── src
+</span><span class='line'>├── tests
+</span><span class='line'>├── tmp
+</span><span class='line'>├── vendor
+</span><span class='line'>└── webroot
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>src以下はずいぶんスッキリ</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>src
+</span><span class='line'>├── Console
+</span><span class='line'>├── Controller
+</span><span class='line'>├── Model<span class="o">(</span>以下にTable,Entity,Behaviorがあります<span class="o">)</span>
+</span><span class='line'>├── Shell
+</span><span class='line'>├── Template <span class="o">(</span>2系列までのView相当<span class="o">)</span>
+</span><span class='line'>└── View <span class="o">(</span>3系列でViewがオブジェクトになった影響のディレクトリ<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>設定</h2>
+
+<p>まずtmpとかlogsとかの権限をphpが関与できる権限に変更しましょう。</p>
+
+<p>つぎにDBの作成とテーブルの設定。チュートリアルにある、以下をまんま流し込む</p>
+
+<p>今回は面倒かつ練習用なので</p>
+
+<p>ユーザー名 root
+パスワード root
+作成したDBの名前 bookmarker</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>CREATE TABLE users <span class="o">(</span>
+</span><span class='line'>    id INT AUTO_INCREMENT PRIMARY KEY,
+</span><span class='line'>    email VARCHAR<span class="o">(</span>255<span class="o">)</span> NOT NULL,
+</span><span class='line'>    password VARCHAR<span class="o">(</span>255<span class="o">)</span> NOT NULL,
+</span><span class='line'>    created DATETIME,
+</span><span class='line'>    updated DATETIME
+</span><span class='line'><span class="o">)</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>CREATE TABLE bookmarks <span class="o">(</span>
+</span><span class='line'>    id INT AUTO_INCREMENT PRIMARY KEY,
+</span><span class='line'>    user_id INT NOT NULL,
+</span><span class='line'>    title VARCHAR<span class="o">(</span>50<span class="o">)</span>,
+</span><span class='line'>    description TEXT,
+</span><span class='line'>    url TEXT,
+</span><span class='line'>    created DATETIME,
+</span><span class='line'>    updated DATETIME,
+</span><span class='line'>    FOREIGN KEY user_key <span class="o">(</span>user_id<span class="o">)</span> REFERENCES users<span class="o">(</span>id<span class="o">)</span>
+</span><span class='line'><span class="o">)</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>CREATE TABLE tags <span class="o">(</span>
+</span><span class='line'>    id INT AUTO_INCREMENT PRIMARY KEY,
+</span><span class='line'>    title VARCHAR<span class="o">(</span>255<span class="o">)</span>,
+</span><span class='line'>    created DATETIME,
+</span><span class='line'>    updated DATETIME,
+</span><span class='line'>    UNIQUE KEY <span class="o">(</span>title<span class="o">)</span>
+</span><span class='line'><span class="o">)</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>CREATE TABLE bookmarks_tags <span class="o">(</span>
+</span><span class='line'>    bookmark_id INT NOT NULL,
+</span><span class='line'>    tag_id INT NOT NULL,
+</span><span class='line'>    PRIMARY KEY <span class="o">(</span>bookmark_id, tag_id<span class="o">)</span>,
+</span><span class='line'>    INDEX tag_idx <span class="o">(</span>tag_id, bookmark_id<span class="o">)</span>,
+</span><span class='line'>    FOREIGN KEY tag_key<span class="o">(</span>tag_id<span class="o">)</span> REFERENCES tags<span class="o">(</span>id<span class="o">)</span>,
+</span><span class='line'>    FOREIGN KEY bookmark_key<span class="o">(</span>bookmark_id<span class="o">)</span> REFERENCES bookmarks<span class="o">(</span>id<span class="o">)</span>
+</span><span class='line'><span class="o">)</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>でもって、作成したDBの設定をconfig/app.phpに反映</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">#config/app.phpの200行目付近</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="s1">&#39;Datasources&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span><span class='line'>                <span class="s1">&#39;className&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Cake\Database\Connection&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Cake\Database\Driver\Mysql&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;persistent&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="cm">/*</span>
+</span><span class='line'><span class="cm">                  * CakePHP will use the default DB port based on the driver selected</span>
+</span><span class='line'><span class="cm">                  * MySQL on MAMP uses port 8889, MAMP users will want to uncomment</span>
+</span><span class='line'><span class="cm">                  * the following line and set the port accordingly</span>
+</span><span class='line'><span class="cm">                  */</span>
+</span><span class='line'>                 <span class="c1">//&#39;port&#39; =&gt; &#39;nonstandard_port_number&#39;,</span>
+</span><span class='line'>                <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span>
+</span><span class='line'>              <span class="s1">&#39;database&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bookmarker&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;encoding&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;timezone&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;UTC&#39;</span><span class="p">,</span>
+</span><span class='line'>                <span class="s1">&#39;cacheMetadata&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="cm">/*</span>
+</span><span class='line'><span class="cm">                 * Set identifier quoting to true if you are using reserved words or</span>
+</span><span class='line'><span class="cm">                 * special characters in your table or column names. Enabling this</span>
+</span><span class='line'><span class="cm">                 * setting will result in queries built using the Query Builder having</span>
+</span><span class='line'><span class="cm">                 * identifiers quoted when creating SQL. It should be noted that this</span>
+</span><span class='line'><span class="cm">                 * decreases performance because each query needs to be traversed and</span>
+</span><span class='line'><span class="cm">                 * manipulated before being executed.</span>
+</span><span class='line'><span class="cm">                 */</span>
+</span><span class='line'>                <span class="s1">&#39;quoteIdentifiers&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="cm">/*</span>
+</span><span class='line'><span class="cm">                 * During development, if using MySQL &lt; 5.6, uncommenting the</span>
+</span><span class='line'><span class="cm">                 * following line could boost the speed at which schema metadata is</span>
+</span><span class='line'><span class="cm">                 * fetched from the database. It can also be set directly with the</span>
+</span><span class='line'><span class="cm">                 * mysql configuration directive &#39;innodb_stats_on_metadata = 0&#39;</span>
+</span><span class='line'><span class="cm">                 * which is the recommended value in production environments</span>
+</span><span class='line'><span class="cm">                 */</span>
+</span><span class='line'>                 <span class="c1">//&#39;init&#39; =&gt; [&#39;SET GLOBAL innodb_stats_on_metadata = 0&#39;],</span>
+</span><span class='line'>            <span class="p">],</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スキャッフォルドで色々と生成</h2>
+
+<p>おなじみのスキャッフォルド</p>
+
+<p>bookmarkerとしてcakeをインストールしたディレクトリで以下を叩きます</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>php bin/cake.php bake all users
+</span><span class='line'>php bin/cake.php bake all bookmarks
+</span><span class='line'>php bin/cake.php bake all tags
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>成功してると最後に以下が表示される</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>Bake All complete.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>成功したなら以下にアクセス</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>http://example.com/bookmarks
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>3系ではcakeのデフォはフラットですね。</p>
+
+<p><img src="/images/2014/12/5/cake3/cake3_bookmarker.png" alt="cake3 bookmarker" /></p>
+
+<p>これだけで、結構な色々な機能が使えるのですが、見れない所がちょいちょい有る。</p>
+
+<p>が、それは後で治すと思うのでとりあえず放置</p>
+
+<p>とりあえず、この後色々試すのにユーザーとタグとブクマのデータを入れて欲しい。
+順番もきちんとユーザー、タグ、ブクマで入れると勘違いが起きない。</p>
+
+<h2>パスワードを暗号化させよう</h2>
+
+<p>現状のままだと、ユーザーのパスワードが暗号化されていないので実用性が低いと思われるので。</p>
+
+<p>src/Model/Entity/User.phpに追記していきます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>&lt;?php
+</span><span class='line'>namespace App<span class="se">\M</span>odel<span class="se">\E</span>ntity<span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>use Cake<span class="se">\O</span>RM<span class="se">\E</span>ntity<span class="p">;</span>
+</span><span class='line'>use Cake<span class="se">\A</span>uth<span class="se">\D</span>efaultPasswordHasher<span class="p">;</span> <span class="c">#追記</span>
+</span><span class='line'>/**
+</span><span class='line'> * User Entity.
+</span><span class='line'> */
+</span><span class='line'>class User extends Entity <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>/**
+</span><span class='line'> * Fields that can be mass assigned using newEntity<span class="o">()</span> or patchEntity<span class="o">()</span>.
+</span><span class='line'> *
+</span><span class='line'> * @var array
+</span><span class='line'> */
+</span><span class='line'>    protected <span class="nv">$_accessible</span> <span class="o">=</span> <span class="o">[</span>
+</span><span class='line'>        <span class="s1">&#39;email&#39;</span> <span class="o">=</span>&gt; <span class="nb">true</span>,
+</span><span class='line'>        <span class="s1">&#39;password&#39;</span> <span class="o">=</span>&gt; <span class="nb">true</span>,
+</span><span class='line'>        <span class="s1">&#39;bookmarks&#39;</span> <span class="o">=</span>&gt; <span class="nb">true</span>,
+</span><span class='line'>        <span class="o">]</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    protected <span class="k">function</span> _setPassword<span class="o">(</span><span class="nv">$value</span><span class="o">)</span> <span class="o">{</span>  <span class="c">#追記</span>
+</span><span class='line'>            <span class="nv">$hasher</span> <span class="o">=</span> new DefaultPasswordHasher<span class="o">()</span><span class="p">;</span> <span class="c">#追記</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nv">$hasher</span>-&gt;hash<span class="o">(</span><span class="nv">$valu</span>             <span class="c">#追記</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(どうでもいいけど、cakeのスキャッフォルド、tab文字で生成されるの凄く気になりませんか？)</p>
+
+<p>これで、Userを編集したり、新しく保存するとユーザーのパスワードが暗号化されるはず。</p>
+
+<p>2系列で使っていたModelは、Model/Entityに移動した形ですかね？
+3系列ではModelがオブジェクトを返すようになったらしいので、それに伴い、大きく変更されてるっぽいですね。</p>
+
+<h3>面倒だけど、ドキュメンを読む</h3>
+
+<p><a href="http://book.cakephp.org/3.0/en/orm.html">Model</a>から抜粋</p>
+
+<blockquote><p>In CakePHP your application’s domain model gets split into 2 primary object types. The first are repositories or table objects. These objects provide access to collections of data. They allow you to save new records, modify/delete existing ones, define relations, and perform bulk operations. The second type of objects are entities. Entities represent individual records and allow you to define row/record level behavior &amp; functionality.</p></blockquote>
+
+<p>ざっくり訳すと、modelは２つに別れて、</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> オブジェクト </th>
+<th style="text-align:right;"> 役割             </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> table </td>
+<td style="text-align:right;"> 新しいデータの保存とか、変更、削除と、リレーションの定義 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> entities</td>
+<td style="text-align:right;"> 独立したレコードの表示や、行の振る舞いや関数の定義</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>つまり、tableはデータを弄る系とリレーション、entitiesはデータの利用ってことでいいのかな？</p>
+
+<h3>ついでにViewがどう変わったのかも確認する</h3>
+
+<p><a href="http://book.cakephp.org/3.0/en/appendices/3-0-migration-guide.html">3.0 Migration Guide</a>がわかりやすそう</p>
+
+<blockquote><p>The folders containing view files now go under src/Template instead of src/View. This was done to separate the view files from files containing php classes (eg. Helpers, View classes).</p></blockquote>
+
+<p>いままでのViewがTemplateに変わったとの事。</p>
+
+<p>cake3ではViewもオブジェクトになったからだと思われる。</p>
+
+<p>でもって、Viewのオブジェクトで色々と設定が出来るようになった？って感じかな。</p>
+
+<h2>タグ付けされてるブックマークを探したいよね。</h2>
+
+<p>たとえば</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>http://example.com/bookmarks/tagged/funny/cat/gifs
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上だと、funnyとかタグ付けされてるやつブクマが分かることを期待する。</p>
+
+<p>この機能を実現するために、以下の手順を通して行う。</p>
+
+<ol>
+<li>config/routes.phpを編集</li>
+<li>src/Controller/BookmarksController.phpの編集</li>
+<li>src/Model/Table/BookmarksTable.phpの編集</li>
+<li>Template/Bookmarks/tags.ctpの追加</li>
+</ol>
+
+
+<h3>まず、config/routes.phpを編集</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">＃URLのbookmarks以下でtaggedにマッチしたら、BookmarksControllersのtagsメソッドにアクセス</span>
+</span><span class='line'><span class="nx">Router</span><span class="o">::</span><span class="na">scope</span><span class="p">(</span>
+</span><span class='line'>    <span class="s1">&#39;/bookmarks&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="p">[</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Bookmarks&#39;</span><span class="p">],</span>
+</span><span class='line'>        <span class="k">function</span> <span class="p">(</span><span class="nv">$routes</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;/tagged/*&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;tags&#39;</span><span class="p">]);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上を、</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">Router</span><span class="o">::</span><span class="na">scope</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="c1">#以下略</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>が出てくる前に記述する。</p>
+
+<p>記述しないと、<code>/</code> が追記したものより先にマッチして思うようにアクセス出来ない。</p>
+
+<h3>コントローラーの編集</h3>
+
+<p>routesに追記したのはBookmarksControllersのtagsにアクセスと書いたが、まだ無いので追記。
+位置は基本的に気にしなくていい。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">tags</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$tags</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">[</span><span class="s1">&#39;pass&#39;</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">#findの第一引数のtaggedが、ModelのfindTaggedに関連づいている</span>
+</span><span class='line'>    <span class="nv">$bookmarks</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">Bookmarks</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="s1">&#39;tagged&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>                <span class="s1">&#39;tags&#39;</span> <span class="o">=&gt;</span> <span class="nv">$tags</span>
+</span><span class='line'>                <span class="p">]);</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nb">compact</span><span class="p">(</span><span class="s1">&#39;bookmarks&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>モデルの編集</h3>
+
+<p>チュートリアルには、コントローラーを薄く保つために、モデルにロジックを記述するんだ！とか書いてある。</p>
+
+<p>結果として、より規約を意識する形になったと思う。</p>
+
+<p>コードのコメントにも書いたが、Controller内のModel呼び出しで、<code>find('tagged'〜</code>のところが、findTaggedと結びついている。</p>
+
+<p>Model/Table/BookmarksTable.phpに以下を追記</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">findTagged</span><span class="p">(</span><span class="nx">Query</span> <span class="nv">$query</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$options</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;Bookmarks.id&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Bookmarks.title&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Bookmarks.url&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">()</span>
+</span><span class='line'>                <span class="o">-&gt;</span><span class="na">distinct</span><span class="p">(</span><span class="nv">$fields</span><span class="p">)</span>
+</span><span class='line'>                <span class="o">-&gt;</span><span class="na">matching</span><span class="p">(</span><span class="s1">&#39;Tags&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$q</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$options</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                    <span class="k">return</span> <span class="nv">$q</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">([</span><span class="s1">&#39;Tags.title IN&#39;</span> <span class="o">=&gt;</span> <span class="nv">$options</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">]]);</span>
+</span><span class='line'>                <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Templateの追加</h3>
+
+<p>Controllerにメソッドを追加したら、Templateも追加しましょう。</p>
+
+<p>/Template/Bookmarks/tags.ctpに以下を記述して保存</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;h1&gt;</span>Bookmarks tagged with <span class="cp">&lt;?= $this-&gt;Text-&gt;toList($tags) ?&gt;</span> <span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;section&gt;</span>
+</span><span class='line'>    <span class="cp">&lt;?php foreach ($bookmarks as $bookmark): ?&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;article&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;h4&gt;</span><span class="cp">&lt;?= $this-&gt;Html-&gt;link($bookmark-&gt;title, $bookmark-&gt;url) ?&gt;</span><span class="nt">&lt;/h4&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;small&gt;</span><span class="cp">&lt;?= h($bookmark-&gt;url) ?&gt;</span><span class="nt">&lt;/small&gt;</span>
+</span><span class='line'>            <span class="cp">&lt;?= $this-&gt;Text-&gt;autoParagraph($bookmark-&gt;description) ?&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/article&gt;</span>
+</span><span class='line'>    <span class="cp">&lt;?php endforeach; ?&gt;</span>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>全て終えると</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>http://example.com/bookmarks/tagged/hogehoge
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>にアクセスするとhogehogeとタグ付けされた本がリストアップされる。</p>
+
+<p>スクショは、予めブクマしたものにプログラミングとタグ付けをしてURLにアクセスしたもの。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>http://example.com/bookmarks/tagged/プログラミング
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/2014/12/5/cake3/cake3_tagged.png" alt="cake3 tagged" /></p>
+
+<p>寂しいけどこんな感じ。
+これでbookmarkerチュートリアルは終了。</p>
+
+<h1>cake3の感想</h1>
+
+<p>結構色々変わった！というのがチュートリアルを終えての印象。</p>
+
+<p>cake2の頃も結構規約を意識しなければならなかったが、更に規約を意識してプログラムを書かなければと思う。</p>
+
+<p>cake慣れていれば問題ないけど、初心者とかは結構詰まるのではないかな？</p>
+
+<p>ModelとViewが更に大きく変わっていると思うけれど、今回のチュートリアルでは構成と役割が分割されたくらいしかわからないので、次回に持越し。</p>
+
+<p>とりあえず、正式にリリースされたら、新規で作るものに関しては使っていきたいと思う。
+これだけの変更があると、マイグレーションツールとかがどの位通用するのかとかも気になる所。</p>
+
+<hr />
+
+<p>想像以上に長くなったので、とりあえず本日の記事は以上にします。
+近いうちに<a href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/part-two.html">Bookmarkarチュートリアル2</a>に取り組む記事もあげる予定です。</p>
+
+<p>cakePHP3のチュートリアルの足掛かりになればと思います。</p>
+
+<h1>補足</h1>
+
+<p>php-intlがインストールできて無かった話</p>
+
+<p>libicudata.so.50()(64bit)が無いと言われたので</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>wget ftp://195.220.108.108/linux/remi/enterprise/6/remi/x86_64/libicu-last-50.1.2-11.el6.remi.x86_64.rpm
+</span><span class='line'>rpm -iV libicu-last-50.1.2-11.el6.remi.x86_64.rpm
+</span><span class='line'>yum -y install --enablerepo<span class="o">=</span>remi-php56 php-intl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>って感じでインストールした。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -335,6 +1163,10 @@ rake new_post['hogehoge'] rake &hellip;">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/">cakePHP3にチャレンジ！</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/12/04/octopressfalsesintatukusuhairaito/">octopressのシンタックスハイライト</a>
