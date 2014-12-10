@@ -225,7 +225,7 @@ python3.4から使えるらしいです。</p>
 </span><span class='line'>    <span class="n">B</span><span class="o">=</span><span class="bp">False</span>
 </span><span class='line'>    <span class="n">C</span><span class="o">=</span><span class="bp">True</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">=</span> <span class="s">&#39;main&#39;</span><span class="p">:</span>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;main&#39;</span><span class="p">:</span>
 </span><span class='line'>    <span class="k">for</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">Hoge</span><span class="p">:</span>
 </span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
@@ -236,8 +236,14 @@ python3.4から使えるらしいです。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">Hoge</span><span class="p">))</span>
-</span><span class='line'><span class="c">#出力 [&#39;A&#39;, &#39;B&#39;, &#39;__class__&#39;, &#39;__doc__&#39;, &#39;__members__&#39;, &#39;__module__&#39;]</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#出力</span>
+</span><span class='line'><span class="c">#A</span>
+</span><span class='line'><span class="c">#True</span>
+</span><span class='line'><span class="c">#B</span>
+</span><span class='line'><span class="c">#False</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

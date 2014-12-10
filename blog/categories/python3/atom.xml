@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python3 | プログラミングの話]]></title>
   <link href="http://shouhei.github.io/blog/categories/python3/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-10T17:28:33+09:00</updated>
+  <updated>2014-12-10T17:30:13+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -85,7 +85,7 @@ class Hoge(Enum):
     B=False
     C=True
 
-if __name__ = 'main':
+if __name__ == 'main':
     for tmp in Hoge:
         print(tmp.name)
         print(tmp.value)
@@ -93,8 +93,11 @@ if __name__ = 'main':
 
 <p>すると結果は</p>
 
-<pre><code class="python">print(dir(Hoge))
-#出力 ['A', 'B', '__class__', '__doc__', '__members__', '__module__']
+<pre><code class="python">#出力
+#A
+#True
+#B
+#False
 </code></pre>
 
 <p>何故かCが定義されてない。</p>
