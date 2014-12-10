@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python3 | プログラミングの話]]></title>
   <link href="http://shouhei.github.io/blog/categories/python3/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-10T17:22:47+09:00</updated>
+  <updated>2014-12-10T17:28:33+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -40,10 +40,18 @@ if __name__ == 'main':
         print(tmp.name)
         print(tmp.value)
 
-    print(hoge.A)
+#出力
+#B
+#1
+#C
+#2
+    print(hoge.B)
+# A.B
 </code></pre>
 
 <h2>インポートして、Enumを継承して利用する方法</h2>
+
+<p>先ほどとはちょっと異なる定義をします。</p>
 
 <pre><code class="python">from enum import Enum
 
@@ -51,12 +59,19 @@ class Hoge(Enum):
     A='a'
     B='b'
 
-if __name__ = 'main':
+if __name__ == 'main':
     for tmp in Hoge:
         print(tmp.name)
         print(tmp.value)
 
+#出力
+#A
+#a
+#B
+#b
     print(Hoge.A)
+#出力
+#Hoge.A
 </code></pre>
 
 <h1>何にハマったか</h1>

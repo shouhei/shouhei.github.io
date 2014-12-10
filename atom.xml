@@ -4,7 +4,7 @@
   <title><![CDATA[プログラミングの話]]></title>
   <link href="http://shouhei.github.io/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-10T17:22:47+09:00</updated>
+  <updated>2014-12-10T17:28:33+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -44,6 +44,12 @@ python3.4から使えるらしいです。</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,[</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;C&#39;</span><span class="p">])</span>
@@ -53,11 +59,19 @@ python3.4から使えるらしいです。</p>
 </span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="n">hoge</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+</span><span class='line'><span class="c">#出力</span>
+</span><span class='line'><span class="c">#B</span>
+</span><span class='line'><span class="c">#1</span>
+</span><span class='line'><span class="c">#C</span>
+</span><span class='line'><span class="c">#2</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="n">hoge</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+</span><span class='line'><span class="c"># A.B</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <h2>インポートして、Enumを継承して利用する方法</h2>
+
+<p>先ほどとはちょっと異なる定義をします。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -71,18 +85,32 @@ python3.4から使えるらしいです。</p>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">class</span> <span class="nc">Hoge</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 </span><span class='line'>    <span class="n">A</span><span class="o">=</span><span class="s">&#39;a&#39;</span>
 </span><span class='line'>    <span class="n">B</span><span class="o">=</span><span class="s">&#39;b&#39;</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">=</span> <span class="s">&#39;main&#39;</span><span class="p">:</span>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;main&#39;</span><span class="p">:</span>
 </span><span class='line'>    <span class="k">for</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">Hoge</span><span class="p">:</span>
 </span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </span><span class='line'>
+</span><span class='line'><span class="c">#出力</span>
+</span><span class='line'><span class="c">#A</span>
+</span><span class='line'><span class="c">#a</span>
+</span><span class='line'><span class="c">#B</span>
+</span><span class='line'><span class="c">#b</span>
 </span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="n">Hoge</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+</span><span class='line'><span class="c">#出力</span>
+</span><span class='line'><span class="c">#Hoge.A</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
