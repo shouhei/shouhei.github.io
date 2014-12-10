@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>python3.4のenumでちょっとハマった話 - プログラミングの話</title>
+  <meta name="author" content="Shouhei Yamaguchi">
+
+  
+  <meta name="description" content="enumとは 列挙型ってやつらしいです。
+python3.4から使えるらしいです。 使い方 インポートして直接利用する方法 第一引数を定義名、第二引数をリストか空白区切りの文字列としEnumの要素とする 以下の方法だと、Aって言うEnum型の定義名にBとCと言う要素を宣言した形となる 1
+2
+3 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shouhei.github.io/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="プログラミングの話" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  <script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	    _gaq.push(['_setAccount', 'UA-57375489-1']);
+		  _gaq.push(['_trackPageview']);
+
+		    (function() {
+			    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+						  })();
+
+						  </script>
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+	<div class="header-title"><a href="/">プログラミングの話</a></div>
+
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shouhei.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+  
+    
+      <h1 class="entry-title">python3.4のenumでちょっとハマった話</h1>
+    
+  
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-10T16:42:20+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>enumとは</h1>
+
+<p><a href="http://docs.python.jp/3/library/enum.html">列挙型</a>ってやつらしいです。
+python3.4から使えるらしいです。</p>
+
+<h1>使い方</h1>
+
+<h2>インポートして直接利用する方法</h2>
+
+<p>第一引数を定義名、第二引数をリストか空白区切りの文字列としEnumの要素とする</p>
+
+<p>以下の方法だと、Aって言うEnum型の定義名にBとCと言う要素を宣言した形となる</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">hoge</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,[</span><span class="s">&#39;B&#39;</span><span class="p">,</span><span class="s">&#39;C&#39;</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;main&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">hoge</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="n">hoge</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インポートして、Enumを継承して利用する方法</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Hoge</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">A</span><span class="o">=</span><span class="s">&#39;a&#39;</span>
+</span><span class='line'>    <span class="n">B</span><span class="o">=</span><span class="s">&#39;b&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">=</span> <span class="s">&#39;main&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">Hoge</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="n">Hoge</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>何にハマったか</h1>
+
+<p>keyとvalueのシンプルな関係を持たせることが出来るなら、正誤表みたいな使い方が連想配列の代わりにEnumで出来るな！と考えて以下の様な定義と使い方をしてみました。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">Enum</span> <span class="kn">import</span> <span class="n">enum</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Hoge</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">A</span><span class="o">=</span><span class="bp">True</span>
+</span><span class='line'>    <span class="n">B</span><span class="o">=</span><span class="bp">False</span>
+</span><span class='line'>    <span class="n">C</span><span class="o">=</span><span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">=</span> <span class="s">&#39;main&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">Hoge</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると結果は</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">Hoge</span><span class="p">))</span>
+</span><span class='line'><span class="c">#出力 [&#39;A&#39;, &#39;B&#39;, &#39;__class__&#39;, &#39;__doc__&#39;, &#39;__members__&#39;, &#39;__module__&#39;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>何故かCが定義されてない。</p>
+
+<h1>なぜ定義されていないか</h1>
+
+<p>ドキュメントにきちんと書いてありました。</p>
+
+<blockquote><p>ただし、複数の列挙型メンバーが同じ値を持つことはできます。同じ値を持つ 2 つのメンバー A および B (先に定義したのは A) が与えられたとき、B は A の別名になります。A および B を値で調べたとき、A が返されます。B を名前で調べたとき、A が返されます:</p></blockquote>
+
+<p>つまり、同じ値を持っているものは同じ名前だよね？って処理がされます。</p>
+
+<p>上の例ではAとCが両方TrueなのでCの定義はAと同義とみなされたということです。</p>
+
+<p><a href="http://ja.wikipedia.org/wiki/%E5%88%97%E6%8C%99%E5%9E%8B">wikipediaの列挙型</a>のページを見る限りいくつかの定数の集まりとして使うのが正解なのでしょうかね？</p>
+
+<p>列挙型を使うのが初めてで存じ上げませんでした。</p>
+
+<p>ドキュメントをきちんと読まなかったので、ちょっとだけハマった話でした。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Shouhei Yamaguchi</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-10T16:42:20+09:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/python3/'>python3</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shouhei.github.io/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua/" data-via="yaaamaaaguuu" data-counturl="http://shouhei.github.io/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua/" >Tweet</a>
+  
+  
+  
+  <a href="http://b.hatena.ne.jp/entry/http://shouhei.github.io/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/" title="Previous Post: cakePHP3にチャレンジ！">&laquo; cakePHP3にチャレンジ！</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua/">python3.4のenumでちょっとハマった話</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/">cakePHP3にチャレンジ！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/04/octopressfalsesintatukusuhairaito/">octopressのシンタックスハイライト</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/02/python3falseistokaintonotfalsehua/">python3のisとかinとnotの話</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/01/hazimetemiru/">はじめてみる</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shouhei">@shouhei</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shouhei',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -  Shouhei Yamaguchi <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> + <a href="https://github.com/ioveracker/mnml">mnml</a>.
+	  
+  </span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

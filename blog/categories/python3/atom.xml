@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python3 | プログラミングの話]]></title>
   <link href="http://shouhei.github.io/blog/categories/python3/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-06T00:26:30+09:00</updated>
+  <updated>2014-12-10T17:22:47+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -12,6 +12,95 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[python3.4のenumでちょっとハマった話]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua/"/>
+    <updated>2014-12-10T16:42:20+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua</id>
+    <content type="html"><![CDATA[<h1>enumとは</h1>
+
+<p><a href="http://docs.python.jp/3/library/enum.html">列挙型</a>ってやつらしいです。
+python3.4から使えるらしいです。</p>
+
+<h1>使い方</h1>
+
+<h2>インポートして直接利用する方法</h2>
+
+<p>第一引数を定義名、第二引数をリストか空白区切りの文字列としEnumの要素とする</p>
+
+<p>以下の方法だと、Aって言うEnum型の定義名にBとCと言う要素を宣言した形となる</p>
+
+<pre><code class="python">from enum import Enum
+
+hoge = Enum('A',['B','C'])
+
+if __name__ == 'main':
+    for tmp in hoge:
+        print(tmp.name)
+        print(tmp.value)
+
+    print(hoge.A)
+</code></pre>
+
+<h2>インポートして、Enumを継承して利用する方法</h2>
+
+<pre><code class="python">from enum import Enum
+
+class Hoge(Enum):
+    A='a'
+    B='b'
+
+if __name__ = 'main':
+    for tmp in Hoge:
+        print(tmp.name)
+        print(tmp.value)
+
+    print(Hoge.A)
+</code></pre>
+
+<h1>何にハマったか</h1>
+
+<p>keyとvalueのシンプルな関係を持たせることが出来るなら、正誤表みたいな使い方が連想配列の代わりにEnumで出来るな！と考えて以下の様な定義と使い方をしてみました。</p>
+
+<pre><code class="python">from Enum import enum
+
+class Hoge(Enum):
+    A=True
+    B=False
+    C=True
+
+if __name__ = 'main':
+    for tmp in Hoge:
+        print(tmp.name)
+        print(tmp.value)
+</code></pre>
+
+<p>すると結果は</p>
+
+<pre><code class="python">print(dir(Hoge))
+#出力 ['A', 'B', '__class__', '__doc__', '__members__', '__module__']
+</code></pre>
+
+<p>何故かCが定義されてない。</p>
+
+<h1>なぜ定義されていないか</h1>
+
+<p>ドキュメントにきちんと書いてありました。</p>
+
+<blockquote><p>ただし、複数の列挙型メンバーが同じ値を持つことはできます。同じ値を持つ 2 つのメンバー A および B (先に定義したのは A) が与えられたとき、B は A の別名になります。A および B を値で調べたとき、A が返されます。B を名前で調べたとき、A が返されます:</p></blockquote>
+
+<p>つまり、同じ値を持っているものは同じ名前だよね？って処理がされます。</p>
+
+<p>上の例ではAとCが両方TrueなのでCの定義はAと同義とみなされたということです。</p>
+
+<p><a href="http://ja.wikipedia.org/wiki/%E5%88%97%E6%8C%99%E5%9E%8B">wikipediaの列挙型</a>のページを見る限りいくつかの定数の集まりとして使うのが正解なのでしょうかね？</p>
+
+<p>列挙型を使うのが初めてで存じ上げませんでした。</p>
+
+<p>ドキュメントをきちんと読まなかったので、ちょっとだけハマった話でした。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[octopressのシンタックスハイライト]]></title>
