@@ -4,7 +4,7 @@
   <title><![CDATA[プログラミングの話]]></title>
   <link href="http://shouhei.github.io/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-10T17:31:04+09:00</updated>
+  <updated>2014-12-13T18:26:10+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    
+    <title type="html"><![CDATA[scpより簡単にファイルをローカルに落とす方法]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/13/scpyorijian-dan-nihuairuworokaruniluo-tosufang-fa/"/>
+    
+    <updated>2014-12-13T16:38:55+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/13/scpyorijian-dan-nihuairuworokaruniluo-tosufang-fa</id>
+    
+    <content type="html"><![CDATA[<h1>scpとは</h1>
+
+<p>リモートのPCにファイルをアップロードしたり、ダウンロードできるコマンド
+基本的にはcpと同じ体系になってると思う。
+で、最初のsは多分sshのs</p>
+
+<h1>問題点</h1>
+
+<p>sshの問題点でも有るんだけど、scpのコマンドの問題でも合って、
+多段sshをしている時って、ファイルをアップロードしたりダウンロードしたりって結構面倒。
+ただでさえコマンドが長くなりがちなのに、「踏み台を一度経由してー」とかやってると日が暮れる。</p>
+
+<h1>解決の仕組み</h1>
+
+<p>webのリンクを踏むとファイルをダウンロードさせる仕組みを使うとリモートからローカルの転送はかなり楽になる。
+この方法を応用すると、同じネットワーク内にいる際にこの方法でファイル共有が出来るのかな。</p>
+
+<h1>必要なもの</h1>
+
+<ul>
+<li>PHP5.4以上</li>
+</ul>
+
+
+<p>PHP5.4以上にはビルトインサーバーが組み込まれているのでこれを使いたい</p>
+
+<h1>参考</h1>
+
+<p><a href="http://thr3a.hatenablog.com/entry/20131017/1381974853">PHPでユーザーにファイルをダウンロード「させる」方法</a></p>
+
+<h1>方法</h1>
+
+<p>上記のリンクのファイルを作成し、以下のコマンドで起動する</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#sample.phpで作成した例, optionはip:ポート番号</span>
+</span><span class='line'>php -S 0.0.0.0:5000 sample.php
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こうすることで、webサーバーがsample.phpを動かすので気軽にファイルをダウンロードは出来るようになる。</p>
+
+<p>(当然リモート側はアクセスできるようにiptables等の設定が必要です)</p>
+
+<h1>本当は取り組みたかったこと</h1>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>php -S 0.0.0.0:5000 sample.php ファイル名
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で任意のファイルをダウンロードさせるスクリプトを作りたかった。</p>
+
+<p>が、コマンドライン引数を受け付けてくれなくて断念した。</p>
+
+<p>コマンドライン引数とかを指定してもipとポート番号と以外無駄。</p>
+
+<h1>他の事例として</h1>
+
+<p>最近python製のマイクロフレームワークのflaskを取り組んでいまして、そっちでも似たようなことをやっていた。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>python app.py 引数
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>って感じでやるといい感じにwebアプリケーションだけどコマンドライン引数を受け取ってくれてた。</p>
+
+<p>これができちゃうのにはスクリプトからwebサーバーを動かす仕組みになっているからですが。
+(つまり、本日、本当にやりたかったことはflaskとpythonがあればできるので、それは後日書きます。)</p>
+
+<h1>結論として</h1>
+
+<p>phpの場合はサーバーの上にスクリプトが存在してて、URLから別ファイルを参照することも(ファイルが存在すると)可能。</p>
+
+<p>python(flask)の場合はスクリプトからwebサーバーを動いているので、そのスクリプト上にルーティングが存在しないとだめ。</p>
+
+<p>両者ともにwebサーバーの機能を実現しているが、仕組みが結構異なるということだと思われる。
+この話を突き詰めていくと結構ちゃんとした話になると思うが、何を突っついたらいいのか分からないのが本音。</p>
+
+<p>話がずれたけど以上。</p>
+]]></content>
+    
+  </entry>
   
   <entry>
     
