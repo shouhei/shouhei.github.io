@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | プログラミングの話]]></title>
+  <link href="http://shouhei.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://shouhei.github.io/"/>
+  <updated>2014-12-21T15:37:02+09:00</updated>
+  <id>http://shouhei.github.io/</id>
+  <author>
+    <name><![CDATA[Shouhei Yamaguchi]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rubyの配列]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/21/rubynohairetu/"/>
+    <updated>2014-12-21T15:18:47+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/21/rubynohairetu</id>
+    <content type="html"><![CDATA[<h1>コード</h1>
+
+<p><div><script src='https://gist.github.com/148fafc067ac58652aa4.js?file=object_verification.rb'></script>
+<noscript><pre><code>plain_a = [&#39;fizz&#39;]
+
+plain_b = plane_a
+
+plain_a &lt;&lt; &#39;buzz&#39;
+
+p plain_a
+#[&quot;fizz&quot;, &quot;buzz&quot;]
+
+p plain_b
+#[&quot;fizz&quot;, &quot;buzz&quot;]
+
+clone_a = [&#39;fizz&#39;]
+
+clone_b = clone_a.clone
+
+clone_a &lt;&lt; &#39;buzz&#39;
+
+p clone_a
+#[&quot;fizz&quot;, &quot;buzz&quot;]
+
+p clone_b
+#[&quot;fizz&quot;]</code></pre></noscript></div>
+</p>
+
+<h1>問題点</h1>
+
+<p>AというオブジェクトからBというオブジェクトに値を受け渡しするプログラムを書いているつもりだった。</p>
+
+<p>値を渡しているつもりなので、Aの方で値を変えても、Bの方の値は動くはずないと思っていた。コードでいうところのcloneの方の挙動</p>
+
+<p>しかし、実際にはAの値を変えるとBの方の値も変化する。コードでいうところのplainの方の挙動</p>
+
+<h1>理由</h1>
+
+<p>単純な話で、値を渡しているつもりが参照を渡していた。</p>
+
+<p>「Ruby 配列 コピー」でググると一番上に出てくる<a href="http://www2u.biglobe.ne.jp/~MAS/ruby/C7DBCEF3A4CEA5B3A5D4A1BC.html">リンク</a>にも</p>
+
+<blockquote><p>Array#cloneないしはArray#dupを使います。</p></blockquote>
+
+<p>と書いてある。</p>
+
+<p>この話って多分Ruby特有の話ではないと思うんですけど、実際にハマってみないと分からないもんですね。</p>
+]]></content>
+  </entry>
+  
+</feed>

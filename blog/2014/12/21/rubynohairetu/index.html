@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: python3 - プログラミングの話</title>
+  <title>Rubyの配列 - プログラミングの話</title>
   <meta name="author" content="Shouhei Yamaguchi">
 
   
-  <meta name="description" content="Category: python3">
+  <meta name="description" content="コード plain_a = [&#39;fizz&#39;] plain_b = plane_a plain_a &lt;&lt; &#39;buzz&#39; p plain_a
+#[&quot;fizz&quot;, &quot;buzz&quot;] p plain_b
+#[&quot; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://shouhei.github.io/blog/categories/python3">
+  <link rel="canonical" href="http://shouhei.github.io/blog/2014/12/21/rubynohairetu">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="プログラミングの話" type="application/atom+xml">
@@ -75,48 +77,133 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Python3</h1>
+  
+    
+      <h1 class="entry-title">Rubyの配列</h1>
+    
+  
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-21T15:18:47+09:00" pubdate data-updated="true"></time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><h1>コード</h1>
 
-  
-  <h2>2014</h2>
+<div><script src='https://gist.github.com/148fafc067ac58652aa4.js?file=object_verification.rb'></script>
+<noscript><pre><code>plain_a = [&#39;fizz&#39;]
 
-<article>
-  
-<h1><a href="/blog/2014/12/10/python3-dot-4falseenumdetiyotutohamatutahua/">python3.4のenumでちょっとハマった話</a></h1>
-<time datetime="2014-12-10T16:42:20+09:00" pubdate><span class='month'>December</span> <span class='day'>10</span> <span class='year'>2014</span></time>
+plain_b = plane_a
 
-</article>
+plain_a &lt;&lt; &#39;buzz&#39;
+
+p plain_a
+#[&quot;fizz&quot;, &quot;buzz&quot;]
+
+p plain_b
+#[&quot;fizz&quot;, &quot;buzz&quot;]
+
+clone_a = [&#39;fizz&#39;]
+
+clone_b = clone_a.clone
+
+clone_a &lt;&lt; &#39;buzz&#39;
+
+p clone_a
+#[&quot;fizz&quot;, &quot;buzz&quot;]
+
+p clone_b
+#[&quot;fizz&quot;]</code></pre></noscript></div>
 
 
+<h1>問題点</h1>
 
-<article>
-  
-<h1><a href="/blog/2014/12/04/octopressfalsesintatukusuhairaito/">octopressのシンタックスハイライト</a></h1>
-<time datetime="2014-12-04T17:05:42+09:00" pubdate><span class='month'>December</span> <span class='day'>04</span> <span class='year'>2014</span></time>
+<p>AというオブジェクトからBというオブジェクトに値を受け渡しするプログラムを書いているつもりだった。</p>
 
-</article>
+<p>値を渡しているつもりなので、Aの方で値を変えても、Bの方の値は動くはずないと思っていた。コードでいうところのcloneの方の挙動</p>
 
+<p>しかし、実際にはAの値を変えるとBの方の値も変化する。コードでいうところのplainの方の挙動</p>
 
+<h1>理由</h1>
 
-<article>
-  
-<h1><a href="/blog/2014/12/02/python3falseistokaintonotfalsehua/">python3のisとかinとnotの話</a></h1>
-<time datetime="2014-12-02T12:44:50+09:00" pubdate><span class='month'>December</span> <span class='day'>02</span> <span class='year'>2014</span></time>
+<p>単純な話で、値を渡しているつもりが参照を渡していた。</p>
 
-</article>
+<p>「Ruby 配列 コピー」でググると一番上に出てくる<a href="http://www2u.biglobe.ne.jp/~MAS/ruby/C7DBCEF3A4CEA5B3A5D4A1BC.html">リンク</a>にも</p>
 
+<blockquote><p>Array#cloneないしはArray#dupを使います。</p></blockquote>
+
+<p>と書いてある。</p>
+
+<p>この話って多分Ruby特有の話ではないと思うんですけど、実際にハマってみないと分からないもんですね。</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Shouhei Yamaguchi</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-21T15:18:47+09:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shouhei.github.io/blog/2014/12/21/rubynohairetu/" data-via="yaaamaaaguuu" data-counturl="http://shouhei.github.io/blog/2014/12/21/rubynohairetu/" >Tweet</a>
+  
+  
+  
+  <a href="http://b.hatena.ne.jp/entry/http://shouhei.github.io/blog/2014/12/21/rubynohairetu/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/13/scpyorijian-dan-nihuairuworokaruniluo-tosufang-fa/" title="Previous Post: scpより簡単にファイルをローカルに落とす方法">&laquo; scpより簡単にファイルをローカルに落とす方法</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
