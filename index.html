@@ -9,9 +9,8 @@
   <meta name="author" content="Shouhei Yamaguchi">
 
   
-  <meta name="description" content="コード plain_a = [&#39;fizz&#39;] plain_b = plane_a plain_a &lt;&lt; &#39;buzz&#39; p plain_a
-#[&quot;fizz&quot;, &quot;buzz&quot;] p plain_b
-#[&quot; &hellip;">
+  <meta name="description" content="問題点 chefでapacheとphpをインストールした際に、PHPがうまく動かない PHPの拡張子なのにテキストファイルとして認識される ダメだったこと PHPをインストール後にapacheを再起動しなかったこと
+PHPをインストール後に etc/httpd/conf.d/ に php.conf &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/blog/2014/12/23/cheftoapachetophp/">Chefとapacheとphp</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-23T14:45:15+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>問題点</h1>
+
+<p>chefでapacheとphpをインストールした際に、PHPがうまく動かない</p>
+
+<p>PHPの拡張子なのにテキストファイルとして認識される</p>
+
+<h1>ダメだったこと</h1>
+
+<ol>
+<li>PHPをインストール後にapacheを再起動しなかったこと</li>
+<li>PHPをインストール後に <code>etc/httpd/conf.d/</code> に <code>php.conf</code> を自分で作成してしまったこと</li>
+</ol>
+
+
+<p>1.については有る有るかもしれないが、2については個人的には意外な話だった。</p>
+
+<p>PHPをインストールする際に、apacheの設定用ディレクトリにPHPの設定ファイルを<code>php.conf</code>という名前で設置してくれるようです。</p>
+
+<p>ただ今回私はPHP用のバーチャルホストの設定として個人的に<code>php.conf</code>を設置していて、それが悪影響を及ぼしてました。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1573,6 +1628,10 @@ python3.4から使えるらしいです。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/23/cheftoapachetophp/">chefとapacheとphp</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/12/21/rubynohairetu/">Rubyの配列</a>
       </li>
     
@@ -1586,10 +1645,6 @@ python3.4から使えるらしいです。</p>
     
       <li class="post">
         <a href="/blog/2014/12/05/cakephp3falsetiyutoriarunitiyarenzi!/">cakePHP3にチャレンジ！</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/12/04/octopressfalsesintatukusuhairaito/">octopressのシンタックスハイライト</a>
       </li>
     
   </ul>

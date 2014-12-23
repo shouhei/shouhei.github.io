@@ -4,7 +4,7 @@
   <title><![CDATA[プログラミングの話]]></title>
   <link href="http://shouhei.github.io/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-21T15:37:02+09:00</updated>
+  <updated>2014-12-23T14:55:43+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    
+    <title type="html"><![CDATA[chefとapacheとphp]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/23/cheftoapachetophp/"/>
+    
+    <updated>2014-12-23T14:45:15+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/23/cheftoapachetophp</id>
+    
+    <content type="html"><![CDATA[<h1>問題点</h1>
+
+<p>chefでapacheとphpをインストールした際に、PHPがうまく動かない</p>
+
+<p>PHPの拡張子なのにテキストファイルとして認識される</p>
+
+<h1>ダメだったこと</h1>
+
+<ol>
+<li>PHPをインストール後にapacheを再起動しなかったこと</li>
+<li>PHPをインストール後に <code>etc/httpd/conf.d/</code> に <code>php.conf</code> を自分で作成してしまったこと</li>
+</ol>
+
+
+<p>1.については有る有るかもしれないが、2については個人的には意外な話だった。</p>
+
+<p>PHPをインストールする際に、apacheの設定用ディレクトリにPHPの設定ファイルを<code>php.conf</code>という名前で設置してくれるようです。</p>
+
+<p>ただ今回私はPHP用のバーチャルホストの設定として個人的に<code>php.conf</code>を設置していて、それが悪影響を及ぼしてました。</p>
+]]></content>
+    
+  </entry>
   
   <entry>
     
