@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sphinx | プログラミングの話]]></title>
+  <link href="http://shouhei.github.io/blog/categories/sphinx/atom.xml" rel="self"/>
+  <link href="http://shouhei.github.io/"/>
+  <updated>2014-12-29T17:49:02+09:00</updated>
+  <id>http://shouhei.github.io/</id>
+  <author>
+    <name><![CDATA[Shouhei Yamaguchi]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[shpinxでapiのドキュメント生成をする時の注意点]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/29/shpinxdeapifalsedokiyumentosheng-cheng-wosurushi-falsezhu-yi-dian/"/>
+    <updated>2014-12-29T16:27:27+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/29/shpinxdeapifalsedokiyumentosheng-cheng-wosurushi-falsezhu-yi-dian</id>
+    <content type="html"><![CDATA[<h1>sphinxとは？</h1>
+
+<p>ドキュメントを作るのがめんどくさい時に利用できるツールでして。</p>
+
+<p>くわしくは<a href="http://sphinx-users.jp/">こっち</a>を見てください。</p>
+
+<h1>この記事の目的</h1>
+
+<p>このsphinxってやつは結構賢くて、有るパッケージ以下を認識させると、それ以下のpythonのパッケージを読み取ってくれて、
+ファイルに記述されているコメントからドキュメント生成してくれます。</p>
+
+<p>今回はそのコマンドを利用する際の注意点を幾つか挙げられれば。</p>
+
+<h1>コマンドの利用方法</h1>
+
+<p>インストール</p>
+
+<pre><code class="sh">pip install sphinx
+</code></pre>
+
+<p>利用方法</p>
+
+<pre><code class="sh">#sphinx-apidoc -f -o 出力先ディレクトリ調査対象ディレクトリ
+#例) app内を調査し、docsに出力する
+sphinx-apidoc -f -o docs/ app/
+</code></pre>
+
+<h1>注意点</h1>
+
+<ol>
+<li>config.pyを書き換える</li>
+<li>rst記法を学ぶ</li>
+<li>__init__.pyが大事</li>
+<li>ライブラリから関数をインポートしない</li>
+<li>コメント内に章立てを入れない</li>
+</ol>
+
+
+<p>以上の理由を軽く解説します。</p>
+
+<h2>1. config.pyを書き換える</h2>
+
+<p>プロジェクトのルートはインポートするようにしましょう。</p>
+
+<p>ドキュメント生成の際に普通にモジュールをインポートしたりするので、インポートするパスを追加しておかないとドキュメントがきちんと生成されません。</p>
+
+<pre><code class="python">import sys
+import os
+sys.path.append('/path/to/project/root')
+</code></pre>
+
+<h2>2. rst記法</h2>
+
+<p>意外と面倒で、マークダウンほどのシンプルではありません。</p>
+
+<p><a href="http://www.planewave.org/translations/rst/quickref.html">はやわかり reStructuredText</a></p>
+
+<p>なんだかんだ上記のページで学ぶのが一番しっかりしていて早いと思われます。</p>
+
+<h2>3. __init__.py大事</h2>
+
+<p>ディレクトリでネストしている際は__init__.pyを設置しましょう。
+当たり前ですが、置かないとpythonが関連しているディレクトリとして認識されません。</p>
+
+<h2>4. ライブラリから関数をインポートしない</h2>
+
+<p>自分がハマったのですが、</p>
+
+<pre><code class="python"># aというモジュール内でhogeモジュールのHogeクラス functioと言う関数を想定
+from hoge.Hoge import function
+</code></pre>
+
+<p>上記のようにインポートするとは、インポートした関数(function)を、ドキュメント生成したい(a)モジュール内の関数だと認識し、
+aというモジュールのドキュメント内に、functionのドキュメントも生成されます。</p>
+
+<p>非常にありがた迷惑です。</p>
+
+<p>たとえばSQLAlchemyを利用している際に、ralationship関数を読み込んでいるとsphinx-apidocはrelatiohship関数のドキュメントも生成しようとします。
+ただし、対象関数のコメントでエラーを吐いて正しくドキュメント生成されません。</p>
+
+<pre><code class="python">#relationshipの関数までドキュメント生成される例
+from sqlalchemy import relationship
+
+relationship()
+</code></pre>
+
+<p>回避方法は以下のとおり</p>
+
+<pre><code>#ドキュメント生成されない例
+import sqlalchemy as sa
+
+sa.relationship()
+</code></pre>
+
+<h2>5. コメント内に章立てを入れない</h2>
+
+<p>ソースコードのコメントで章立てをしないというのは、おそらく既に、モジュール名、クラス名、関数名で章立てができているので不要だからだと思います。</p>
+
+<p>(はっきりと検証していないので不確かですが、)コメント内で章立てをするとエラーが出てまたしてもドキュメント生成されません。</p>
+]]></content>
+  </entry>
+  
+</feed>
