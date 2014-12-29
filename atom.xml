@@ -4,7 +4,7 @@
   <title><![CDATA[プログラミングの話]]></title>
   <link href="http://shouhei.github.io/atom.xml" rel="self"/>
   <link href="http://shouhei.github.io/"/>
-  <updated>2014-12-29T17:49:02+09:00</updated>
+  <updated>2014-12-29T17:54:28+09:00</updated>
   <id>http://shouhei.github.io/</id>
   <author>
     <name><![CDATA[Shouhei Yamaguchi]]></name>
@@ -92,8 +92,9 @@
 
 <h2>3. __init__.py大事</h2>
 
-<p>ディレクトリでネストしている際は__init__.pyを設置しましょう。
-当たり前ですが、置かないとpythonが関連しているディレクトリとして認識されません。</p>
+<p>ディレクトリでネストしている際は__init__.pyを設置しましょう。</p>
+
+<p>当たり前ですが、置かないとpythonが関連しているディレクトリとして認識されません。</p>
 
 <h2>4. ライブラリから関数をインポートしない</h2>
 
@@ -109,10 +110,11 @@
 <p>上記のようにインポートするとは、インポートした関数(function)を、ドキュメント生成したい(a)モジュール内の関数だと認識し、
 aというモジュールのドキュメント内に、functionのドキュメントも生成されます。</p>
 
-<p>非常にありがた迷惑です。</p>
+<p>(誰得の機能なのだろうか?)</p>
 
-<p>たとえばSQLAlchemyを利用している際に、ralationship関数を読み込んでいるとsphinx-apidocはrelatiohship関数のドキュメントも生成しようとします。
-ただし、対象関数のコメントでエラーを吐いて正しくドキュメント生成されません。</p>
+<p>たとえばSQLAlchemyを利用している際に、ralationship関数を読み込んでいるとsphinx-apidocはrelatiohship関数のドキュメントも生成しようとします。</p>
+
+<p>ただし、対象関数のコメントでエラーを吐いて正しくドキュメント生成されません。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
