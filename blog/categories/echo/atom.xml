@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: echo | プログラミングの話]]></title>
+  <link href="http://shouhei.github.io/blog/categories/echo/atom.xml" rel="self"/>
+  <link href="http://shouhei.github.io/"/>
+  <updated>2014-12-30T18:50:47+09:00</updated>
+  <id>http://shouhei.github.io/</id>
+  <author>
+    <name><![CDATA[Shouhei Yamaguchi]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[echoの挙動]]></title>
+    <link href="http://shouhei.github.io/blog/2014/12/30/echo/"/>
+    <updated>2014-12-30T18:14:38+09:00</updated>
+    <id>http://shouhei.github.io/blog/2014/12/30/echo</id>
+    <content type="html"><![CDATA[<h1>事の発端</h1>
+
+<p><a href="http://www.amazon.co.jp/%E3%81%B5%E3%81%A4%E3%81%86%E3%81%AELinux%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-Linux%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B9%E3%82%8Bgcc%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E7%8E%8B%E9%81%93-%E9%9D%92%E6%9C%A8-%E5%B3%B0%E9%83%8E/dp/4797328355/">ふつうのLinuxプログラミング Linuxの仕組みから学べるgccプログラミングの王道</a></p>
+
+<p>以上の本に&#8221;\007&#8221;って標準出力すると文字コード由来でベルが鳴ると書いてあった。</p>
+
+<p>書いてあるなら試すしか無い。</p>
+
+<p>普段から利用しているiTermを開いて</p>
+
+<pre><code>echo "\007"
+</code></pre>
+
+<p>ベルが鳴る。</p>
+
+<pre><code>echo "\008"
+</code></pre>
+
+<p>8と出力</p>
+
+<pre><code>echo "\009"
+</code></pre>
+
+<p>9と出力</p>
+
+<p>変な気がする。</p>
+
+<h1>問題点</h1>
+
+<p><a href="http://www.degraeve.com/reference/asciitable.php">ここ</a>に沿って考えると、BSとか、HTとかが表現されるはず。</p>
+
+<p>少なくとも、普通に8とか9とかは違う気がする。</p>
+
+<h1>検証</h1>
+
+<p><div><script src='https://gist.github.com/66213014bd9a229f88f9.js'></script>
+<noscript><pre><code>use strict;
+use warnings;
+
+for(my $i =0; $i &lt; 100; $i++){
+    my $str = sprintf(&quot;\&quot;\\%03d\&quot;\n&quot;,$i);
+    system(&quot;echo $str&quot;);
+}</code></pre></noscript></div>
+</p>
+
+<p>以上のようなスクリプトを作成し走らせた。</p>
+
+<p>結果は両方共以下のとおり。</p>
+
+<pre><code>
+
+
+
+
+
+
+
+8
+9
+
+
+
+
+
+
+
+
+
+
+
+8
+9
+
+
+
+
+
+
+
+
+8
+9
+
+
+
+
+
+
+
+
+8
+9
+
+!
+"
+#
+$
+%
+&amp;
+'
+8
+9
+(
+)
+*
++
+,
+-
+.
+/
+8
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+8
+9
+:
+;
+&lt;
+=
+&gt;
+?
+8
+9
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+</code></pre>
+
+<p>途中でアルファベットとか出てきていいと思うのに、なんか違う気がする。</p>
+
+<h1>結論</h1>
+
+<p>echo コマンドの使い方の問題だった。</p>
+
+<p><a href="http://itdoc.hitachi.co.jp/manuals/3021/3021313320/JPAS0374.HTM">echoコマンド（引数で指定した内容を標準出力に出力する） </a></p>
+
+<p>こんなことで日立にお世話になるとは思っていなかったけれど。</p>
+
+<p>要するに、echoコマンドの使い方的には8進数か16進数を期待しているので、gistに上げたプログラムは自分の期待通りにはなりません。</p>
+
+<p>自分が期待していた動きをするスクリプトは以下。実行結果は割愛</p>
+
+<p><div><script src='https://gist.github.com/b0d98f303627368bcb5d.js'></script>
+<noscript><pre><code>use strict;
+use warnings;
+
+for(my $i =0; $i &lt; 100; $i++){
+    my $str = sprintf(&quot;\&quot;\\%04o\&quot;\n&quot;,$i);
+    system(&quot;echo $str&quot;);
+}</code></pre></noscript></div>
+</p>
+
+<p>あと
+<code>
+echo "\007"
+</code></p>
+
+<p>でベルがなるのは</p>
+
+<pre><code>注※1
+
+    指定したASCIIコード文字が1桁または2桁の場合，前に0を付けて3桁で指定しても，同じ意味として解釈されます。例えば，次の3つの指定は同じ意味として解釈され，アラート文字（ベル）が3回出力されます。
+
+    echo -e "\07"
+
+    echo -e "\007"
+
+    echo -e "\0007"
+</code></pre>
+
+<p>ということらしい。</p>
+]]></content>
+  </entry>
+  
+</feed>
